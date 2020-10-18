@@ -1,0 +1,14 @@
+name: ${project.name}
+version: ${project.version}
+main: me.zodiakk.spigotjs.SpigotJs
+author: Zodiak
+website: ${project.website}
+api-version: '1.16'
+commands:
+  sjs:
+    aliases: [spigotjs, spigotjavascript, js, javascript]
+    description: Main command for SpigotJS management
+  jseval:
+    description: "Shortcut command for /js eval"
+  jsget:
+    description: "Shortcut command for /js get"

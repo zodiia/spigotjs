@@ -1,0 +1,48 @@
+image: maven:3.6.3-jdk-8
+
+cache:
+  paths:
+  - .m2/repository
+
+stages:
+- test
+- build
+- deploy
+
+lint:jdk8:
+  stage: test
+  script: "mvn -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository --batch-mode checkstyle:check"
+
+junit:jdk8:
+  stage: test
+  script: "mvn -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository --batch-mode -U test"
+
+build:jdk8:
+  stage: build
+  script: "mvn -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository --batch-mode -U -DskipTests clean install"
+  except:
+  - master
+  - develop
+
+deploy-snapshot:jdk8:
+  stage: deploy
+  script:
+  - version=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)
+  - if [[ $version == *"-SNAPSHOT" ]]; then
+      if [ ! -f mvn_settings.xml ]; then
+        exit 1;
+      fi;
+      mvn --batch-mode --errors --show-version -DdeployAtEnd=true -DskipTests deploy -s mvn_settings.xml;
+    fi
+  only:
+  - develop
+
+deploy:jdk8:
+  stage: deploy
+  script:
+  - if [ ! -f mvn_settings.xml ]; then
+      exit 1;
+    fi
+  - mvn --batch-mode --errors --show-version -DdeployAtEnd=true -DskipTests deploy -s mvn_settings.xml
+  only:
+  - master

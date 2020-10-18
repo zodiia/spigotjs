@@ -1,0 +1,7 @@
+{
+  "error": {
+    "consoleSender": "&eWarning: &7Sending commands as a console is not recommended and could break features.",
+    "entitySender": "&cError: &7Non-player entities are not allowed to send commands.",
+    "noPermission": "&cError: &7You don't have permission to use this command."
+  }
+}

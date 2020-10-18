@@ -1,0 +1,20 @@
+# DO NOT EDIT! This is used to keep this file updated
+version: 0
+
+# Plugin language. Possible values are:
+# - en_EN (default)
+# - fr_FR
+# You can also edit the messages in the lang/en_EN.json file (or any other file that you selected)
+# Feel free to help me translate the plugin in other languages :)
+language: "en_EN"
+
+# Whether or not to display warnings when using methods from other versions of Minecraft. Possible values are:
+# - always (display warnings on every use)
+# - once (display a warning the first time the method is used)
+# - never (disable those warnings)
+deprecated-methods-warning: "once"
+
+# Enable experimental features. Do not enable unless you know what you are doing. These features will likely be added in future releases anyway.
+enable-experimental-features: false
+
+# More configuration will come in the future!
