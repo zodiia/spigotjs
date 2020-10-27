@@ -41,7 +41,7 @@ public class I18nLanguage {
         return language;
     }
 
-    public String get(String key, Object ... arguments) {
+    public String get(String key, Object... arguments) {
         String line = values.get(key);
 
         if (line == null) {

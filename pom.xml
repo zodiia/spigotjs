@@ -106,6 +106,7 @@
             <excludes>
               <exclude>org.spigot:spigot-api</exclude> <!-- Spigot API -->
               <exclude>org.jetbrains:annotations</exclude> <!-- IDEA annotations (GTFO Jetbrains) -->
+              <exclude>org.graalvm.*:*</exclude>
             </excludes>
           </artifactSet>
         </configuration>
@@ -170,6 +171,19 @@
           </buildArgs>
         </configuration>
       </plugin> -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>SpigotJS/lib/</classpathPrefix>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>

@@ -11,7 +11,7 @@ import me.zodiakk.spigotjs.i18n.I18n;
  */
 public class SpigotJsApi {
     private static final SpigotJsApi INSTANCE;
-    private final I18n I18N;
+    private final I18n i18n;
 
     static {
         INSTANCE = new SpigotJsApi();
@@ -19,7 +19,7 @@ public class SpigotJsApi {
 
     private SpigotJsApi() {
         try {
-            I18N = new I18n();
+            i18n = new I18n();
         } catch (IOException ex) {
             throw new IllegalStateException(ex);
         }
@@ -33,7 +33,7 @@ public class SpigotJsApi {
         return INSTANCE;
     }
 
-    public JavascriptContext createJavascriptContext() {
+    public JavascriptContext createJavascriptContext() throws IOException {
         return new JavascriptContext();
     }
 
@@ -42,6 +42,6 @@ public class SpigotJsApi {
     }
 
     public I18n getI18n() {
-        return I18N;
+        return i18n;
     }
 }

@@ -109,7 +109,7 @@ public class JsonUtil {
     }
 
     /**
-     * Read a JSON file from its {@link Reader}
+     * Read a JSON file from its {@link Reader}.
      * @param reader File reader
      * @return JSON representation of this file
      */

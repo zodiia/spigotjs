@@ -53,7 +53,7 @@ public class JsonConfiguration extends JsonConfigurationSection {
      * Get a JSON configuration file.
      * @param file   File to parse
      * @param reload Whether to reload the file if it was already parsed
-     * @return An instance of this configuration flie
+     * @return An instance of this configuration file
      */
     public static JsonConfiguration getConfiguration(File file, boolean reload) throws IOException {
         if (!reload && CONFIGURATION_FILES.containsKey(file.getPath())) {
@@ -67,7 +67,10 @@ public class JsonConfiguration extends JsonConfigurationSection {
     }
 
     /**
-     *
+     * Get a local JSON configuration file.
+     * @param plugin   Plugin in which to extract the configuration file
+     * @param fileName Path to the file in the plugin's jar file
+     * @return An instance of this configuration file
      */
     public static JsonConfiguration getLocalConfiguration(Plugin plugin, String fileName) throws IOException {
         InputStream stream = plugin.getClass().getResourceAsStream("/" + fileName);
@@ -93,6 +96,7 @@ public class JsonConfiguration extends JsonConfigurationSection {
 
         plugin.getDataFolder().mkdirs();
         if (!file.exists()) {
+            file.getParentFile().mkdirs();
             file.createNewFile();
             InputStream stream = plugin.getClass().getResourceAsStream("/" + fileName);
             FileOutputStream output = new FileOutputStream(file);

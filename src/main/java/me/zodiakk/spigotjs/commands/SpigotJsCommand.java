@@ -25,5 +25,17 @@ public class SpigotJsCommand extends SubCommand {
         } else {
             sender.sendMessage("require is not invokable");
         }
+
+        try {
+            context.execute("const customBind = 18;");
+        } catch (Exception ex) {
+            // Truc
+        }
+
+        if (context.getBindings().hasMember("customBind")) {
+            sender.sendMessage("require is a member");
+        } else {
+            sender.sendMessage("require is not a member");
+        }
     }
 }

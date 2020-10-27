@@ -42,7 +42,7 @@ public class I18n {
         current = key;
     }
 
-    public String get(String language, String key, Object ... arguments) {
+    public String get(String language, String key, Object... arguments) {
         I18nLanguage lang = getLanguage(language);
 
         if (lang == null) {

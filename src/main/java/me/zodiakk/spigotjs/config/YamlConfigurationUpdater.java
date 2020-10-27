@@ -38,7 +38,7 @@ import org.yaml.snakeyaml.Yaml;
 public class YamlConfigurationUpdater {
 
     /**
-     * Update a yaml file from a resource inside your plugin jar
+     * Update a yaml file from a resource inside your plugin jar.
      * @param plugin You plugin
      * @param resourceName The yaml file name to update from, typically config.yml
      * @param toUpdate The yaml file to update
@@ -186,8 +186,9 @@ public class YamlConfigurationUpdater {
         int lastLineIndentCount = 0;
 
         outer: for (String line : lines) {
-            if (line != null && line.trim().startsWith("-"))
+            if (line != null && line.trim().startsWith("-")) {
                 continue;
+            }
 
             if (line == null || line.trim().equals("") || line.trim().startsWith("#")) {
                 builder.append(line).append("\n");
@@ -198,8 +199,9 @@ public class YamlConfigurationUpdater {
                     if (keyBuilder.toString().equals(ignoredSection)) {
                         Object value = oldConfig.get(keyBuilder.toString());
 
-                        if (value instanceof ConfigurationSection)
+                        if (value instanceof ConfigurationSection) {
                             appendSection(builder, (ConfigurationSection) value, new StringBuilder(getPrefixSpaces(lastLineIndentCount)), yaml);
+                        }
 
                         continue outer;
                     }

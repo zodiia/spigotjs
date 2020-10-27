@@ -1,0 +1,44 @@
+package me.zodiakk.spigotjs.engine.object;
+
+public interface LivingEntity extends Entity {
+    public boolean addPotionEffect(String type, Number duration);
+    public boolean addPotionEffect(String type, Number duration, Number amplifier);
+    public boolean addPotionEffect(String type, Number duration, Number amplifier, boolean ambient);
+    public boolean addPotionEffect(String type, Number duration, Number amplifier, boolean ambient, boolean particles);
+    public boolean addPotionEffect(String type, Number duration, Number amplifier, boolean ambient, boolean particles, boolean force);
+    public String[] getActivePotionEffects();
+    public boolean getCanPickupItems();
+    public Number getEyeHeight();
+    public Number getEyeHeight(boolean ignorePose);
+    public Location getEyeLocation();
+    public Player getKiller();
+    public Number getLastDamage();
+    public Entity getLeashHolder();
+    public Number getMaximumAir();
+    public Number getMaximumNoDamageTicks();
+    public Number getNoDamageTicks();
+    public boolean getPotionEffectAmbient(String type);
+    public Number getPotionEffectAmplifier(String type);
+    public Number getPotionEffectDuration(String type);
+    public boolean getPotionEffectParticles(String type);
+    public Number getRemainingAir();
+    public boolean getRemoveWhenFarAway();
+    public boolean hasPotionEffect(String type);
+    public boolean isLeashed();
+    public void removePotionEffect(String type);
+    public void setCanPickupItems(boolean pickup);
+    public void setLastDamage(Number damage);
+    public void setLeashHolder(Entity holder);
+    public void setMaximumAir(Number ticks);
+    public void setMaximumNoDamageTicks(Number ticks);
+    public void setNoDamageTicks(Number ticks);
+    public void setRemainingAir(Number ticks);
+    public void setRemoveWhenFarAway(boolean remove);
+    public void damage(Number amount);
+    public void damage(Number amount, Entity source);
+    public Number getHealth();
+    public Number getMaxHealth();
+    public void resetMaxHealth();
+    public void setHealth(Number amount);
+    public void setMaxHealth(Number amount);
+}

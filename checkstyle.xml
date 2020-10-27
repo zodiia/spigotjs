@@ -6,7 +6,7 @@
 -->
 <!--
     Checkstyle-Configuration: Zodiak (Fork of Google Checks)
-    Description: 
+    Description:
 Forked from the Google Checks coding style. Checkstyle configuration that checks the Google coding conventions from Google Java Style that can be found at https://google.github.io/styleguide/javaguide.html.
 -->
 <module name="Checker">
@@ -206,9 +206,6 @@ Forked from the Google Checks coding style. Checkstyle configuration that checks
       <property name="ignoreFinal" value="false"/>
     </module>
     <module name="OverloadMethodsDeclarationOrder">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="VariableDeclarationUsageDistance">
       <property name="severity" value="error"/>
     </module>
     <module name="CustomImportOrder">
