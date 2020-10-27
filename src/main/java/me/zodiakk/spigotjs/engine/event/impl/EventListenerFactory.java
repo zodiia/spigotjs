@@ -8,9 +8,9 @@ public class EventListenerFactory {
 
     public ScriptEventListener create(EventType type) {
         switch (type) {
-            case ENABLE: return createScriptEnable();
-            case DISABLE: return createScriptDisable();
-            default: return null;
+        case ENABLE: return createScriptEnable();
+        case DISABLE: return createScriptDisable();
+        default: return null;
         }
     }
 

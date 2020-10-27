@@ -99,7 +99,7 @@ Forked from the Google Checks coding style. Checkstyle configuration that checks
     </module>
     <module name="EmptyLineSeparator">
       <property name="severity" value="error"/>
-      <property name="tokens" value="PACKAGE_DEF,IMPORT,STATIC_IMPORT,CLASS_DEF,ENUM_DEF,INTERFACE_DEF,CTOR_DEF,METHOD_DEF,STATIC_INIT,INSTANCE_INIT,VARIABLE_DEF"/>
+      <property name="tokens" value="PACKAGE_DEF,IMPORT,STATIC_IMPORT,CLASS_DEF,ENUM_DEF,INTERFACE_DEF,CTOR_DEF,STATIC_INIT,INSTANCE_INIT,VARIABLE_DEF"/>
       <property name="allowNoEmptyLineBetweenFields" value="true"/>
       <property name="allowMultipleEmptyLines" value="false"/>
       <property name="allowMultipleEmptyLinesInsideClassMembers" value="false"/>

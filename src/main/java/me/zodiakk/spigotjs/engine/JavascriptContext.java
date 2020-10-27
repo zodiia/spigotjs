@@ -31,13 +31,13 @@ public class JavascriptContext {
     public void setScript(Script script) throws IOException {
         switchClassLoader();
         context.getBindings("js").putMember("___spigotjs", script.getLinker());
-        execute("const ___require = require;" +
-                "require = function(path) {" +
-                "    if (path == 'spigotjs') {" +
-                "        return ___spigotjs;" +
-                "    }" +
-                "    return ___require(path);" +
-                "}");
+        execute("const ___require = require;"
+              + "require = function(path) {"
+              + "    if (path == 'spigotjs') {"
+              + "        return ___spigotjs;"
+              + "    }"
+              + "    return ___require(path);"
+              + "}");
         switchClassLoader();
     }
 

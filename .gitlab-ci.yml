@@ -24,25 +24,27 @@ build:jdk8:
   - master
   - develop
 
-deploy-snapshot:jdk8:
-  stage: deploy
-  script:
-  - version=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)
-  - if [[ $version == *"-SNAPSHOT" ]]; then
-      if [ ! -f mvn_settings.xml ]; then
-        exit 1;
-      fi;
-      mvn --batch-mode --errors --show-version -DdeployAtEnd=true -DskipTests deploy -s mvn_settings.xml;
-    fi
-  only:
-  - develop
+# Deploy is disabled until first releases
 
-deploy:jdk8:
-  stage: deploy
-  script:
-  - if [ ! -f mvn_settings.xml ]; then
-      exit 1;
-    fi
-  - mvn --batch-mode --errors --show-version -DdeployAtEnd=true -DskipTests deploy -s mvn_settings.xml
-  only:
-  - master
+# deploy-snapshot:jdk8:
+#   stage: deploy
+#   script:
+#   - version=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)
+#   - if [[ $version == *"-SNAPSHOT" ]]; then
+#       if [ ! -f mvn_settings.xml ]; then
+#         exit 1;
+#       fi;
+#       mvn --batch-mode --errors --show-version -DdeployAtEnd=true -DskipTests deploy -s mvn_settings.xml;
+#     fi
+#   only:
+#   - develop
+
+# deploy:jdk8:
+#   stage: deploy
+#   script:
+#   - if [ ! -f mvn_settings.xml ]; then
+#       exit 1;
+#     fi
+#   - mvn --batch-mode --errors --show-version -DdeployAtEnd=true -DskipTests deploy -s mvn_settings.xml
+#   only:
+#   - master

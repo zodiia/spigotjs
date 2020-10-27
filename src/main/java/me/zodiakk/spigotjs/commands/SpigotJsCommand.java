@@ -1,5 +1,7 @@
 package me.zodiakk.spigotjs.commands;
 
+import java.io.IOException;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -12,7 +14,14 @@ public class SpigotJsCommand extends SubCommand {
 
     @Override
     public void onSubCommand(CommandSender sender, Command command, String label, String[] args) {
-        JavascriptContext context = new JavascriptContext();
+        JavascriptContext context;
+        try {
+            context = new JavascriptContext();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return;
+        }
 
         if (context.getBindings().hasMember("require")) {
             sender.sendMessage("require is a member");
