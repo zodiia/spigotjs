@@ -1,9 +1,9 @@
 package me.zodiakk.spigotjs.engine.object;
 
-public interface Event extends ApiElement {
+public interface JsEvent extends ApiElement {
     public String getName();
     public boolean isAsynchronous();
     public boolean isCancellable();
     public boolean isCancelled();
-    public void setCancelled(boolean cancelled);
+    public void setCancelled(Boolean cancelled);
 }

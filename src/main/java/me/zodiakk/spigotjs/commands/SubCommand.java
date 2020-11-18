@@ -14,7 +14,7 @@ import me.zodiakk.spigotjs.SpigotJsApi;
 import me.zodiakk.spigotjs.i18n.I18nLanguage;
 
 public abstract class SubCommand implements CommandExecutor {
-    private static I18nLanguage i18n = null;
+    protected static I18nLanguage i18n = null;
     private Set<SubCommand> childrens = new HashSet<SubCommand>();
     private SubCommand parent = null;
     private String command;
@@ -76,7 +76,7 @@ public abstract class SubCommand implements CommandExecutor {
         if (args.length > 0) {
             for (SubCommand sub : childrens) {
                 if (sub.getCommand().equalsIgnoreCase(args[0])) {
-                    sub.onCommand(sender, command, label, Arrays.copyOfRange(args, 1, args.length));
+                    sub.onCommand(sender, command, label + " " + args[0], Arrays.copyOfRange(args, 1, args.length));
                     return true;
                 }
             }

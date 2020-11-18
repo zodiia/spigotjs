@@ -3,7 +3,7 @@ package me.zodiakk.spigotjs.event;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 
-import me.zodiakk.spigotjs.engine.Script;
+import me.zodiakk.spigotjs.engine.script.Script;
 
 public class ScriptLoadEvent extends ScriptEvent implements Cancellable {
     private static final HandlerList HANDLERS = new HandlerList();

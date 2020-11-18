@@ -1,18 +1,17 @@
 package me.zodiakk.spigotjs;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.zodiakk.spigotjs.commands.SpigotJsCommand;
 import me.zodiakk.spigotjs.config.JsonConfiguration;
 
 public class SpigotJs extends JavaPlugin {
-    private static Plugin instance;
-    private static FileConfiguration config;
+    private static SpigotJs instance;
+    private SpigotJsConfig config;
 
     @Override
     public void onLoad() {
@@ -29,24 +28,36 @@ public class SpigotJs extends JavaPlugin {
 
         saveDefaultConfig();
 
-        config = getConfig();
+        config = new SpigotJsConfig(getConfig());
         try {
             SpigotJsApi.getInstance().getI18n().addLanguage(
-                "en_EN", JsonConfiguration.extractConfiguration(this, "lang/en_EN.json"));
+                "en", JsonConfiguration.extractConfiguration(this, "lang/en.json"));
         } catch (IOException ex) {
             Bukkit.getLogger().severe("Could not load language files.");
             throw new IllegalStateException(ex);
         }
+
+        try {
+            File autorunDir = new File(getDataFolder(), "scripts/autorun");
+
+            autorunDir.mkdirs();
+            SpigotJsApi.getInstance().getScriptManager().createScriptsInDirectory(autorunDir);
+        } catch (IOException ex) {
+            Bukkit.getLogger().warning("Could not load scripts in autorun directory");
+            ex.printStackTrace();
+        }
+
+        SpigotJsApi.getInstance().getScriptManager().enable();
 
         getCommand("sjs").setExecutor(new SpigotJsCommand());
     }
 
     @Override
     public void onDisable() {
-        // Do nothing (at the moment)
+        SpigotJsApi.getInstance().getScriptManager().disable();
     }
 
-    public static final Plugin getInstance() {
+    public static final SpigotJs getInstance() {
         return instance;
     }
 
@@ -54,7 +65,7 @@ public class SpigotJs extends JavaPlugin {
         return instance == null;
     }
 
-    public static final FileConfiguration getJsonConfig() {
+    public final SpigotJsConfig getSpigotJsConfig() {
         return config;
     }
 }

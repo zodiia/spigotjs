@@ -1,6 +1,6 @@
 package me.zodiakk.spigotjs.engine.object;
 
-public interface LivingEntity extends Entity {
+public interface JsLivingEntity extends JsEntity {
     public boolean addPotionEffect(String type, Number duration);
     public boolean addPotionEffect(String type, Number duration, Number amplifier);
     public boolean addPotionEffect(String type, Number duration, Number amplifier, boolean ambient);
@@ -9,11 +9,11 @@ public interface LivingEntity extends Entity {
     public String[] getActivePotionEffects();
     public boolean getCanPickupItems();
     public Number getEyeHeight();
-    public Number getEyeHeight(boolean ignorePose);
-    public Location getEyeLocation();
-    public Player getKiller();
+    public Number getEyeHeight(Boolean ignorePose);
+    public JsLocation getEyeLocation();
+    public JsPlayer getKiller();
     public Number getLastDamage();
-    public Entity getLeashHolder();
+    public JsEntity getLeashHolder();
     public Number getMaximumAir();
     public Number getMaximumNoDamageTicks();
     public Number getNoDamageTicks();
@@ -26,16 +26,16 @@ public interface LivingEntity extends Entity {
     public boolean hasPotionEffect(String type);
     public boolean isLeashed();
     public void removePotionEffect(String type);
-    public void setCanPickupItems(boolean pickup);
+    public void setCanPickupItems(Boolean pickup);
     public void setLastDamage(Number damage);
-    public void setLeashHolder(Entity holder);
+    public void setLeashHolder(JsEntity holder);
     public void setMaximumAir(Number ticks);
     public void setMaximumNoDamageTicks(Number ticks);
     public void setNoDamageTicks(Number ticks);
     public void setRemainingAir(Number ticks);
-    public void setRemoveWhenFarAway(boolean remove);
+    public void setRemoveWhenFarAway(Boolean remove);
     public void damage(Number amount);
-    public void damage(Number amount, Entity source);
+    public void damage(Number amount, JsEntity source);
     public Number getHealth();
     public Number getMaxHealth();
     public void resetMaxHealth();

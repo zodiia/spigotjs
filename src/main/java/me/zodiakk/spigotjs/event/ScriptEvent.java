@@ -2,7 +2,7 @@ package me.zodiakk.spigotjs.event;
 
 import org.bukkit.event.Event;
 
-import me.zodiakk.spigotjs.engine.Script;
+import me.zodiakk.spigotjs.engine.script.Script;
 
 public abstract class ScriptEvent extends Event {
     private Script script;

@@ -16,8 +16,11 @@ public class I18n {
         languages = new HashSet<I18nLanguage>();
 
         if (!SpigotJs.exists()) {
-            addLanguage("en_EN", JsonConfiguration.getLocalConfiguration(SpigotJs.getInstance(), "lang/en_EN.json"));
-            setCurrentLanguage("en_EN");
+            addLanguage("en", JsonConfiguration.getLocalConfiguration(SpigotJs.getInstance(), "lang/en.json")); // FIXME: SpigotJs.getInstance() will return null
+            setCurrentLanguage("en");
+        } else {
+            String lang = SpigotJs.getInstance().getSpigotJsConfig().getLanguage();
+            addLanguage(lang, JsonConfiguration.getLocalConfiguration(SpigotJs.getInstance(), "lang/" + lang + ".json"));
         }
     }
 

@@ -2,18 +2,36 @@ package me.zodiakk.spigotjs.engine;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Source;
 import org.graalvm.polyglot.Value;
 
+import me.zodiakk.spigotjs.engine.script.Script;
+
 public class JavascriptContext {
+    private static final Set<JavascriptContext> JS_LIBS;
+    private static final Map<String, Object> REQUIRE_PATH;
+
+    static {
+        JS_LIBS = new HashSet<JavascriptContext>();
+        REQUIRE_PATH = new HashMap<String, Object>();
+    }
+
     private Source source;
     private Context context;
     private ClassLoader threadClassLoader;
     private ClassLoader graalClassLoader;
     private boolean currentClassLoaderIsThread = true;
+    private Script script;
 
     public JavascriptContext() throws IOException {
         threadClassLoader = Thread.currentThread().getContextClassLoader();
@@ -28,22 +46,35 @@ public class JavascriptContext {
         loadFile(file);
     }
 
+    public JavascriptContext(URL url) throws IOException {
+        this();
+        loadFile(url);
+    }
+
     public void setScript(Script script) throws IOException {
         switchClassLoader();
-        context.getBindings("js").putMember("___spigotjs", script.getLinker());
-        execute("const ___require = require;"
-              + "require = function(path) {"
-              + "    if (path == 'spigotjs') {"
-              + "        return ___spigotjs;"
-              + "    }"
-              + "    return ___require(path);"
-              + "}");
+        this.script = script;
+        Function<String, Object> require = (id) -> {
+            if (id.equals("spigotjs")) {
+                return this.script.getLinker();
+            }
+            // TODO: Import libraries
+            // TODO: Import file
+            return null;
+        };
+        context.getBindings("js").putMember("require", require);
         switchClassLoader();
     }
 
     public void loadFile(File file) throws IOException {
         switchClassLoader();
         source = Source.newBuilder("js", file).build();
+        switchClassLoader();
+    }
+
+    public void loadFile(URL url) throws IOException {
+        switchClassLoader();
+        source = Source.newBuilder("js", url).build();
         switchClassLoader();
     }
 
@@ -113,5 +144,9 @@ public class JavascriptContext {
         } else {
             Thread.currentThread().setContextClassLoader(threadClassLoader);
         }
+    }
+
+    public static void loadLibs(Plugin plugin) {
+        // plugin.getClass().getResourceAsStream(name)
     }
 }

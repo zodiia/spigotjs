@@ -16,7 +16,9 @@ SpigotJS.register({
   name: 'Test plugin',
   version: '1.0.0',
   author: 'Zodiak',
-  minecraft_version: '1.16'
+  minecraftVersion: '1.16',
+  apiVersion: '1',
+  description: 'An example plugin!'
 });
 
 // ... execute code ...

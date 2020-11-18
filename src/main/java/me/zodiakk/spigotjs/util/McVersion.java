@@ -35,4 +35,8 @@ public enum McVersion {
     public boolean isOlderThan(McVersion version) {
         return order < version.order;
     }
+
+    public static McVersion fromString(String value) {
+        return valueOf("MC" + value.split("\\.")[0] + "_" + value.split("\\.")[1]);
+    }
 }

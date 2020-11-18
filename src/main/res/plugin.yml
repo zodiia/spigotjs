@@ -1,9 +1,9 @@
 name: ${project.name}
 version: ${project.version}
-main: me.zodiakk.spigotjs.SpigotJs
+main: ${plugin.main}
 author: Zodiak
-website: ${project.website}
-api-version: '1.16'
+website: ${project.url}
+api-version: ${plugin.api-version}
 commands:
   sjs:
     aliases: [spigotjs, spigotjavascript, js, javascript]

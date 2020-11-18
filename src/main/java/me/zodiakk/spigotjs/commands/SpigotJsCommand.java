@@ -5,11 +5,14 @@ import java.io.IOException;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
+import me.zodiakk.spigotjs.commands.spigotjs.RunCommand;
 import me.zodiakk.spigotjs.engine.JavascriptContext;
 
 public class SpigotJsCommand extends SubCommand {
     public SpigotJsCommand() {
         super("sjs");
+
+        this.addSubCommand(new RunCommand(this));
     }
 
     @Override
@@ -46,5 +49,9 @@ public class SpigotJsCommand extends SubCommand {
         } else {
             sender.sendMessage("require is not a member");
         }
+    }
+
+    public void displayHelp(CommandSender sender, String label) {
+        sender.sendMessage(i18n.getArray("command.sjs.?", i18n.get("spigotJs"), label).toArray(new String[0]));
     }
 }

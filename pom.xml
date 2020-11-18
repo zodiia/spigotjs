@@ -12,6 +12,12 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <graalvm.version>20.2.0</graalvm.version>
+    <spigot-api.version>1.16.4-R0.1</spigot-api.version>
+
+    <!-- plugin.yml properties -->
+    <plugin.api-version>1.16</plugin.api-version>
+    <plugin.main>me.zodiakk.spigotjs.SpigotJs</plugin.main>
   </properties>
 
   <repositories>
@@ -25,7 +31,7 @@
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
-      <version>1.16.3-R0.1-SNAPSHOT</version>
+      <version>${spigot-api.version}-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
 
@@ -38,31 +44,31 @@
     <dependency>
       <groupId>org.graalvm.sdk</groupId>
       <artifactId>graal-sdk</artifactId>
-      <version>20.2.0</version>
+      <version>${graalvm.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.graalvm.js</groupId>
       <artifactId>js</artifactId>
-      <version>20.2.0</version>
+      <version>${graalvm.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.graalvm.js</groupId>
       <artifactId>js-scriptengine</artifactId>
-      <version>20.2.0</version>
+      <version>${graalvm.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.graalvm.regex</groupId>
       <artifactId>regex</artifactId>
-      <version>20.2.0</version>
+      <version>${graalvm.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.graalvm.truffle</groupId>
       <artifactId>truffle-api</artifactId>
-      <version>20.2.0</version>
+      <version>${graalvm.version}</version>
     </dependency>
   </dependencies>
 
@@ -74,13 +80,18 @@
         <directory>${project.basedir}/src/main/res</directory>
         <filtering>true</filtering>
       </resource>
+      <resource>
+        <directory>${project.basedir}/target/extra-resources</directory>
+      </resource>
     </resources>
     <testResources>
       <testResource>
         <directory>${project.basedir}/src/test/res</directory>
       </testResource>
     </testResources>
+
     <plugins>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -90,6 +101,7 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
@@ -119,6 +131,7 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
@@ -146,31 +159,13 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>3.1.1</version>
       </plugin>
-      <!-- <plugin>
-        <groupId>org.graalvm.nativeimage</groupId>
-        <artifactId>native-image-maven-plugin</artifactId>
-        <version>20.2.0</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>native-image</goal>
-            </goals>
-            <phase>package</phase>
-          </execution>
-        </executions>
-        <configuration>
-          <skip>false</skip>
-          <imageName>SpigotJS</imageName>
-          <buildArgs>
-            - -no-fallback
-          </buildArgs>
-        </configuration>
-      </plugin> -->
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -184,6 +179,30 @@
           </archive>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.basedir}/target/extra-resources/js</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.basedir}/src/main/js</directory>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
 </project>

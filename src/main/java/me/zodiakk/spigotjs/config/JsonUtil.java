@@ -67,12 +67,9 @@ public class JsonUtil {
 
         bufferedWriter.write(GSON.toJson(json));
 
-        try {
-            bufferedWriter.close();
-            fileWriter.close();
-        } catch (NullPointerException ex) {
-            // Do nothing as both variables may be null if anything happened before they were initialized
-        }
+        bufferedWriter.close();
+        fileWriter.close();
+
         return true;
     }
 
@@ -98,12 +95,8 @@ public class JsonUtil {
         bufferedReader.lines().forEach(line -> stringBuilder.append(line));
         jsonElement = jsonParser.parse(stringBuilder.toString());
 
-        try {
-            bufferedReader.close();
-            fileReader.close();
-        } catch (NullPointerException ex) {
-            // Do nothing as both variables may be null if anything happened before they were initialized
-        }
+        bufferedReader.close();
+        fileReader.close();
 
         return jsonElement;
     }

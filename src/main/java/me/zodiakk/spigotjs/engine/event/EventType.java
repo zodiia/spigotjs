@@ -2,7 +2,8 @@ package me.zodiakk.spigotjs.engine.event;
 
 public enum EventType {
     ENABLE("enable"),
-    DISABLE("disable");
+    DISABLE("disable"),
+    RELOAD("reload");
 
     private String name;
 

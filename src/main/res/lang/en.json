@@ -1,0 +1,174 @@
+{
+  "spigotJs": "&6Spigot&eJS",
+  "error": {
+    "unknownError": "&cError: &7An unknown error has occured. Please check the console for further details.",
+    "consoleSender": "&eWarning: &7Sending commands as a console is not recommended and may break features.",
+    "entitySender": "&cError: &7Non-player entities are not allowed to send commands.",
+    "noPermission": "&cError: &7You don't have permission to use this command.",
+    "notYetImplemented": "&cError: &7This feature has not yet been implemented.",
+    "fileDoesntExist": "&cError: &7The file ({{0}} does not exist."
+  },
+  "script": {
+    "error": {
+      "noSuchEventType": "&eWarning: &7Script {{0}} tried to register an unknown event type: {{1}}.",
+      "invalidDescription": "&cError: &7Script file {{0}} has an invalid description."
+    }
+  },
+  "command": {
+    "sjs": {
+      "?": [
+        "{{0}} &7- Help",
+        "&7Usage: &3/{{1}} <sub-command> [arguments ...]",
+        "&7List of available sub-commands:",
+        "  &3cancel &7- Cancel a scheduled script",
+        "  &3get &7- Download a script from the internet",
+        "  &3help &7- Display help about a sub-command",
+        "  &3interactive &7- Interactive JS console within the chat",
+        "  &3pause &7- Pause a running script",
+        "  &3ps &7- List running scripts",
+        "  &3run &7- Run a script",
+        "  &3schedule &7- Schedule a script to run later",
+        "  &3scripts &7- List all available scripts",
+        "  &3status &7- Display the current state of SpigotJS or a running script",
+        "  &3stop &7- Stop a script",
+        "  &3unpause &7- Unpause a paused script",
+        "  &3version &7- Get version informations"
+      ],
+      "cancel": {
+        "?": [
+          "{{0}} &7- Help",
+          "&7Usage: &3/{{1}} <script>",
+          "",
+          "&7Arguments:",
+          "  &3script&7: Name of the script to cancel",
+          "",
+          "&7Options:",
+          "  &3-f   &7Force the cancellation"
+        ]
+      },
+      "get": {
+        "?": [
+          "{{0}} &7- Help",
+          "&7Usage: &3/{{1}} [-l] [-r] <name>",
+          "",
+          "&7Arguments:",
+          "  &3name&7: Name of the script",
+          "",
+          "&7Options:",
+          "  &3-l   &7Do not download and instead list scripts matching the name",
+          "  &3-r   &7Remove the script, if installed"
+        ]
+      },
+      "help": {
+        "?": [
+          "{{0}} &7- Help",
+          "&7Usage: &3/{{1}} [sub-command]",
+          "",
+          "&7Arguments:",
+          "  &3sub-command&7 (optional): Sub-command to get help for"
+        ]
+      },
+      "interactive": {
+        "?": [
+          "{{0}} &7- Help",
+          "&7Usage: &3/{{1}} [-f] [-s <code ...>]",
+          "",
+          "&7Options:",
+          "  &3-f   &7Full-integration mode with any other chat message disabled",
+          "  &3-s   &7Run a single line of code and do not enable interactive mode"
+        ]
+      },
+      "pause": {
+        "?": [
+          "{{0}} &7- Help",
+          "&7Usage: &3/{{1}} <script>",
+          "",
+          "&7Arguments:",
+          "  &3script&7: Name of the script to pause"
+        ]
+      },
+      "ps": {
+        "?": [
+          "{{0}} &7- Help",
+          "&7Usage: &3/{{1}} [-a] [-p] [-u]",
+          "",
+          "&7Options:",
+          "  &3-a   &7List all scripts (including non-running ones)",
+          "  &3-p   &7Only list paused scripts",
+          "  &3-u   &7Only list running and unpaused scripts"
+        ]
+      },
+      "run": {
+        "?": [
+          "{{0}} &7- Help",
+          "&7Usage: &3/{{1}} [-a] [-e <file>] [-i <file>] [-o <file>] <script file>",
+          "",
+          "&7Arguments:",
+          "  &3script file&7: Script file to run",
+          "",
+          "&7Options:",
+          "  &3-a   &7Print all script outputs into the chat",
+          "  &3-e   &7Set this file as stderr",
+          "  &3-i   &7Set this file as stdin",
+          "  &3-o   &7Set this file as stdout"
+        ],
+        "runningScript": "&7Running script {{0}}...",
+        "cannotLoad": "&cError: &7Script could not be loaded."
+      },
+      "schedule": {
+        "?": [
+          "{{0}} &7- Help",
+          "&7Usage: &3/{{1}} [-f] <script>",
+          "",
+          "&7Arguments:",
+          "  &3script&7: Name of the script to cancel",
+          "",
+          "&7Options:",
+          "  &3-f   &7Force the cancellation"
+        ]
+      },
+      "scripts": {
+        "?": [
+          "{{0}} &7- Help",
+          "&7Usage: &3/{{1}}"
+        ]
+      },
+      "status": {
+        "?": [
+          "{{0}} &7- Help",
+          "&7Usage: &3/{{1}} [script]",
+          "",
+          "&7Arguments:",
+          "  &3script&7 (optional): Script to get status of"
+        ]
+      },
+      "stop": {
+        "?": [
+          "{{0}} &7- Help",
+          "&7Usage: &3/{{1}} [-f] <script>",
+          "",
+          "&7Arguments:",
+          "  &3script&7: Name of the script to stop",
+          "",
+          "&7Options:",
+          "  &3-f   &7Force the script to stop"
+        ]
+      },
+      "unpause": {
+        "?": [
+          "{{0}} &7- Help",
+          "&7Usage: &3/{{1}} <script>",
+          "",
+          "&7Arguments:",
+          "  &3script&7: Name of the script to unpause"
+        ]
+      },
+      "version": {
+        "?": [
+          "{{0}} &7- Help",
+          "&7Usage: &3/{{1}}"
+        ]
+      }
+    }
+  }
+}

@@ -2,11 +2,17 @@
 version: 0
 
 # Plugin language. Possible values are:
-# - en_EN (default)
-# - fr_FR
-# You can also edit the messages in the lang/en_EN.json file (or any other file that you selected)
+# - en (default)
+# - fr
+# You can also edit the messages in the lang/en.json file (or any other file that you selected)
 # Feel free to help me translate the plugin in other languages :)
-language: "en_EN"
+language: "en"
+
+# Scripts main directory (located in plugins/SpigotJS/...)
+scripts-directory: scripts
+
+# Autoruns scripts directory (scripts that will automatically run when your server starts)
+scripts-autorun-directory: scripts/autorun
 
 # Whether or not to display warnings when using methods from other versions of Minecraft. Possible values are:
 # - always (display warnings on every use)
