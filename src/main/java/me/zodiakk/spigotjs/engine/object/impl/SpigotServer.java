@@ -3,10 +3,12 @@ package me.zodiakk.spigotjs.engine.object.impl;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import java.util.logging.Level;
 
 import org.bukkit.BanList;
 import org.bukkit.GameMode;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
@@ -281,14 +283,23 @@ public class SpigotServer implements JsServer {
 
     @Override
     public JsWorld getWorld(String world) {
-        // TODO: SpigotWorld implementation
-        return null;
+        return new SpigotWorld(server.getWorld(world));
+    }
+
+    @Override
+    public JsWorld getWorldById(String id) {
+        return new SpigotWorld(server.getWorld(UUID.fromString(id)));
     }
 
     @Override
     public JsWorld[] getWorlds() {
-        // TODO: SpigotWorld implementation
-        return null;
+        JsWorld[] worlds = new JsWorld[server.getWorlds().size()];
+        int i = 0;
+
+        for (World world : server.getWorlds()) {
+            worlds[i++] = new SpigotWorld(world);
+        }
+        return worlds;
     }
 
     @Override

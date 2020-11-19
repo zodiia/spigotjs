@@ -32,6 +32,7 @@ public interface JsServer extends ApiElement {
     public void                 setPermissionDescription(String permission, String description);
     public void                 setPermissionParent(String permission, String parentPermission, Boolean value);
     public String[]             getPermissionParents(String permission);
+    public String[]             getPermissions();
 
     // Logs
     public void                 log(String message);
@@ -54,6 +55,7 @@ public interface JsServer extends ApiElement {
     public JsPlayer[]           getPlayers();
     public JsOfflinePlayer[]    getWhitelistedPlayers();
     public JsWorld              getWorld(String world);
+    public JsWorld              getWorldById(String id);
     public JsWorld[]            getWorlds();
     public boolean              getAllowEnd();
     public boolean              getAllowFlight();
@@ -88,5 +90,4 @@ public interface JsServer extends ApiElement {
     public void                 setIdleTimeout(Number timeout);
     public void                 setSpawnRadius(Number value);
     public void                 setWhitelist(Boolean whitelist);
-    public String[]             getPermissions();
 }
