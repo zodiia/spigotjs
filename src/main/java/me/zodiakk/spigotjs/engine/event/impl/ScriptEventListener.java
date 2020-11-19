@@ -3,13 +3,13 @@ package me.zodiakk.spigotjs.engine.event.impl;
 import org.graalvm.polyglot.Value;
 
 import me.zodiakk.spigotjs.engine.event.EventType;
-import me.zodiakk.spigotjs.engine.event.ScriptEventListener;
+import me.zodiakk.spigotjs.engine.event.JsEventListener;
 
-public abstract class JsEventListener implements ScriptEventListener {
+public abstract class ScriptEventListener implements JsEventListener {
     private Value callback;
     private EventType type;
 
-    protected JsEventListener(EventType type) {
+    protected ScriptEventListener(EventType type) {
         this.type = type;
     }
 

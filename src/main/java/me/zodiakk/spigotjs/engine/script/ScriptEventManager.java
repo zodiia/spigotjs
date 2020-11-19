@@ -5,11 +5,11 @@ import java.util.HashSet;
 import org.graalvm.polyglot.Value;
 
 import me.zodiakk.spigotjs.engine.event.EventType;
-import me.zodiakk.spigotjs.engine.event.ScriptEventListener;
+import me.zodiakk.spigotjs.engine.event.JsEventListener;
 import me.zodiakk.spigotjs.engine.event.impl.EventListenerFactory;
 
 class ScriptEventManager {
-    private HashSet<ScriptEventListener> registeredListeners = new HashSet<ScriptEventListener>();
+    private HashSet<JsEventListener> registeredListeners = new HashSet<JsEventListener>();
     private final Script script;
 
     public ScriptEventManager(Script script) {
@@ -17,7 +17,7 @@ class ScriptEventManager {
     }
 
     public boolean register(EventType type, Value callback) {
-        ScriptEventListener listener = EventListenerFactory.getInstance().create(type);
+        JsEventListener listener = EventListenerFactory.getInstance().create(type);
 
         if (listener == null) {
             return false;
@@ -28,7 +28,7 @@ class ScriptEventManager {
     }
 
     public void unregisterAll(EventType type) {
-        for (ScriptEventListener listener : registeredListeners) {
+        for (JsEventListener listener : registeredListeners) {
             if (!listener.getType().equals(type)) {
                 continue;
             }

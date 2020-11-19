@@ -1,22 +1,28 @@
 package me.zodiakk.spigotjs.engine.event.impl;
 
 import org.bukkit.Bukkit;
-import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.graalvm.polyglot.Value;
 
-import me.zodiakk.spigotjs.engine.event.ScriptEventListener;
+import me.zodiakk.spigotjs.engine.event.EventType;
+import me.zodiakk.spigotjs.engine.event.JsEventListener;
+import me.zodiakk.spigotjs.engine.object.impl.SpigotServer;
 
-public abstract class SpigotEventListener implements ScriptEventListener, Listener {
+public abstract class SpigotEventListener implements JsEventListener, Listener {
     private static Plugin PLUGIN;
     private Value callback;
+    private EventType type;
 
     {
         if (PLUGIN == null) {
             PLUGIN = Bukkit.getServer().getPluginManager().getPlugin("SpigotJS");
         }
+    }
+
+    public SpigotEventListener(EventType type) {
+        this.type = type;
     }
 
     @Override
@@ -30,7 +36,13 @@ public abstract class SpigotEventListener implements ScriptEventListener, Listen
         HandlerList.unregisterAll(this);
     }
 
-    public void onEvent(Event event) {
-        callback.executeVoid(event);
+    @Override
+    public void onEvent(Object... args) {
+        callback.executeVoid(args, new SpigotServer(Bukkit.getServer()));
+    }
+
+    @Override
+    public EventType getType() {
+        return type;
     }
 }

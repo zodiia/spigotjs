@@ -3,7 +3,11 @@ package me.zodiakk.spigotjs.engine.event;
 public enum EventType {
     ENABLE("enable"),
     DISABLE("disable"),
-    RELOAD("reload");
+    RELOAD("reload"),
+
+    // Blocks
+    BLOCK_BREAK("blockBreak"),
+    BLOCK_PLACE("blockPlace");
 
     private String name;
 
