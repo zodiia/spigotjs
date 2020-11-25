@@ -33,7 +33,7 @@ public class ScriptLinker {
             return;
         }
         if (callback == null || callback.isNull()) {
-            script.getEventManager().unregisterAll(type);
+            script.getEventManager().unregister(type);
             return;
         }
         if (!callback.canExecute()) {

@@ -2,6 +2,7 @@ package me.zodiakk.spigotjs.engine;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,12 +10,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Source;
 import org.graalvm.polyglot.Value;
 
+import me.zodiakk.spigotjs.SpigotJs;
 import me.zodiakk.spigotjs.engine.script.Script;
 
 public class JavascriptContext {
@@ -32,10 +33,12 @@ public class JavascriptContext {
     private ClassLoader graalClassLoader;
     private boolean currentClassLoaderIsThread = true;
     private Script script;
+    private File file;
 
     public JavascriptContext() throws IOException {
         threadClassLoader = Thread.currentThread().getContextClassLoader();
         graalClassLoader = getClass().getClassLoader();
+        file = null;
         switchClassLoader();
         context = Context.newBuilder("js").allowAllAccess(true).allowExperimentalOptions(true).build();
         switchClassLoader();
@@ -44,11 +47,17 @@ public class JavascriptContext {
     public JavascriptContext(File file) throws IOException {
         this();
         loadFile(file);
+        this.file = file;
     }
 
-    public JavascriptContext(URL url) throws IOException {
+    public JavascriptContext(URL url) throws IOException, URISyntaxException {
         this();
         loadFile(url);
+        try {
+            file = new File(url.toURI());
+        } catch (IllegalArgumentException ex) {
+            // Do nothing as the URL could not lead to a real file
+        }
     }
 
     public void setScript(Script script) throws IOException {
@@ -58,8 +67,16 @@ public class JavascriptContext {
             if (id.equals("spigotjs")) {
                 return this.script.getLinker();
             }
-            // TODO: Import libraries
-            // TODO: Import file
+            if (REQUIRE_PATH.containsKey(id)) {
+                return REQUIRE_PATH.get(id);
+            }
+            if (id.startsWith("./")) {
+                // File importedFile = new File(file == null ? SpigotJs.getInstance().getDataFolder() : file.getParentFile(), id);
+
+                // if (importedFile.exists()) {
+                //     return execute(importedFile);
+                // }
+            }
             return null;
         };
         context.getBindings("js").putMember("require", require);

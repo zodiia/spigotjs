@@ -6,5 +6,5 @@ public interface JsEventListener {
     public void register(Value callback);
     public void unregister();
     public EventType getType();
-    public void onEvent(Object... args);
+    public void onEvent(Object args);
 }

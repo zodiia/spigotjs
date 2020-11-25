@@ -24,7 +24,7 @@ public abstract class ScriptEventListener implements JsEventListener {
     }
 
     @Override
-    public void onEvent(Object... args) {
+    public void onEvent(Object args) {
         callback.executeVoid(args);
     }
 

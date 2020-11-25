@@ -10,6 +10,7 @@ public class SpigotBlockBreakEvent extends SpigotBlockExpEvent implements JsBloc
 
     public SpigotBlockBreakEvent(BlockBreakEvent event) {
         super(event);
+        this.event = event;
     }
 
     public JsPlayer getPlayer() {

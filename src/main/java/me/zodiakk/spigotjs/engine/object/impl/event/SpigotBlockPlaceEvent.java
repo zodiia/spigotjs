@@ -13,6 +13,7 @@ public class SpigotBlockPlaceEvent extends SpigotBlockEvent implements JsBlockPl
 
     public SpigotBlockPlaceEvent(BlockPlaceEvent event) {
         super(event);
+        this.event = event;
     }
 
     @Override

@@ -12,6 +12,7 @@ public class SpigotBlockEvent extends SpigotEvent implements JsBlockEvent {
 
     public SpigotBlockEvent(BlockEvent event) {
         super(event);
+        this.event = event;
     }
 
     @Override

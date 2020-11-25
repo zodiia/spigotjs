@@ -6,14 +6,15 @@ import org.bukkit.event.block.BlockBreakEvent;
 import me.zodiakk.spigotjs.engine.event.EventType;
 import me.zodiakk.spigotjs.engine.event.impl.SpigotEventListener;
 import me.zodiakk.spigotjs.engine.object.impl.event.SpigotBlockBreakEvent;
+import me.zodiakk.spigotjs.engine.script.Script;
 
 public class BlockBreak extends SpigotEventListener {
-    public BlockBreak() {
-        super(EventType.BLOCK_BREAK);
+    public BlockBreak(Script script) {
+        super(EventType.BLOCK_BREAK, script);
     }
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
-        onEvent(new SpigotBlockBreakEvent(event));
+        getScript().getEventManager().onEvent(getType(), new SpigotBlockBreakEvent(event));
     }
 }

@@ -154,7 +154,8 @@ public class JsonConfiguration extends JsonConfigurationSection {
      * @param writeFile         Whether to write the file on the file system
      */
     public void updateConfiguration(Plugin plugin, String localResourcePath, boolean writeFile) throws IOException {
-        File updatedFile = new File(plugin.getDataFolder(), "__" + localResourcePath);
+        String temporaryPath = localResourcePath.replaceAll("([\\\\\\/]?)([^\\\\\\/]*\\.[^\\\\\\/]*)$", "$1__$2");
+        File updatedFile = new File(plugin.getDataFolder(), temporaryPath);
         Version newVersion;
         Version actualVersion;
         JsonConfiguration config;

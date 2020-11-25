@@ -8,7 +8,7 @@ import me.zodiakk.spigotjs.engine.event.EventType;
 import me.zodiakk.spigotjs.engine.event.JsEventListener;
 import me.zodiakk.spigotjs.engine.event.impl.EventListenerFactory;
 
-class ScriptEventManager {
+public class ScriptEventManager {
     private HashSet<JsEventListener> registeredListeners = new HashSet<JsEventListener>();
     private final Script script;
 
@@ -17,17 +17,18 @@ class ScriptEventManager {
     }
 
     public boolean register(EventType type, Value callback) {
-        JsEventListener listener = EventListenerFactory.getInstance().create(type);
+        JsEventListener listener = EventListenerFactory.getInstance().create(type, script);
 
         if (listener == null) {
             return false;
         }
+        unregister(type);
         listener.register(callback);
         registeredListeners.add(listener);
         return true;
     }
 
-    public void unregisterAll(EventType type) {
+    public void unregister(EventType type) {
         for (JsEventListener listener : registeredListeners) {
             if (!listener.getType().equals(type)) {
                 continue;
@@ -37,7 +38,7 @@ class ScriptEventManager {
         }
     }
 
-    public void onEvent(EventType type, Object... arguments) {
+    public void onEvent(EventType type, Object argument) {
         if (script.isPaused()) {
             return;
         }
@@ -45,7 +46,7 @@ class ScriptEventManager {
             if (!listener.getType().equals(type)) {
                 return;
             }
-            listener.onEvent(arguments);
+            listener.onEvent(argument);
         });
     }
 }

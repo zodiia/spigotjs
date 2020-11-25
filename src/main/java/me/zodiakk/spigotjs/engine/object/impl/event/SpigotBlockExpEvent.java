@@ -9,6 +9,7 @@ public class SpigotBlockExpEvent extends SpigotBlockEvent implements JsBlockExpE
 
     public SpigotBlockExpEvent(BlockExpEvent event) {
         super(event);
+        this.event = event;
     }
 
     @Override
