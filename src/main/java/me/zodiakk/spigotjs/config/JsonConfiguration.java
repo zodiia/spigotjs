@@ -150,7 +150,7 @@ public class JsonConfiguration extends JsonConfigurationSection {
     /**
      * Update the configuration from its local resource path.
      * @param plugin            Current plugin
-     * @param localResourcePath Local resource path (in the resource folder of the plugin's jar file)
+     * @param localResourcePath Local resource path (in the resource directory of the plugin's jar file)
      * @param writeFile         Whether to write the file on the file system
      */
     public void updateConfiguration(Plugin plugin, String localResourcePath, boolean writeFile) throws IOException {
