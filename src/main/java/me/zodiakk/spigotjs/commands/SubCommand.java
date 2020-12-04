@@ -25,12 +25,12 @@ public abstract class SubCommand implements CommandExecutor {
         }
     }
 
-    public SubCommand(SubCommand parent, String command) {
+    protected SubCommand(SubCommand parent, String command) {
         this.parent = parent;
         this.command = command;
     }
 
-    public SubCommand(String command) {
+    protected SubCommand(String command) {
         this.command = command;
     }
 

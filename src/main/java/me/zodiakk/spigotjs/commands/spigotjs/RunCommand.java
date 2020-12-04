@@ -43,6 +43,7 @@ public class RunCommand extends SubCommand {
 
         try {
             Script script = SpigotJsApi.getInstance().getScriptManager().createScript(scriptFile);
+
             sender.sendMessage(i18n.get("command.sjs.run.runningScript", script.getDescription().toShortString()));
             sender.sendMessage(script.getDescription().toString());
             script.enable();

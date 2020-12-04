@@ -9,6 +9,7 @@ import org.bukkit.TreeType;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
@@ -522,14 +523,12 @@ public class SpigotWorld implements JsWorld {
 
     @Override
     public JsEntity spawnEntity(Number x, Number y, Number z, String entityType) {
-        // TODO: SpigotEntity
-        return null;
+        return new SpigotEntity(world.spawnEntity(new Location(world, x.doubleValue(), y.doubleValue(), z.doubleValue()), EntityType.valueOf(entityType.toUpperCase())));
     }
 
     @Override
     public JsEntity spawnEntity(JsLocation location, String entityType) {
-        // TODO: SpigotEntity
-        return null;
+        return new SpigotEntity(world.spawnEntity(location.java(Location.class), EntityType.valueOf(entityType.toUpperCase())));
     }
 
     @Override

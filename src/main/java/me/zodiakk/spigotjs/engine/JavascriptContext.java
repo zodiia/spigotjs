@@ -1,31 +1,30 @@
 package me.zodiakk.spigotjs.engine;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Source;
 import org.graalvm.polyglot.Value;
 
 import me.zodiakk.spigotjs.SpigotJs;
+import me.zodiakk.spigotjs.SpigotJsApi;
 import me.zodiakk.spigotjs.engine.script.Script;
+import me.zodiakk.spigotjs.i18n.I18nLanguage;
 
 public class JavascriptContext {
-    private static final Set<JavascriptContext> JS_LIBS;
-    private static final Map<String, Object> REQUIRE_PATH;
-
-    static {
-        JS_LIBS = new HashSet<JavascriptContext>();
-        REQUIRE_PATH = new HashMap<String, Object>();
-    }
+    private static final Map<String, Source> REQUIRE_PATH = new HashMap<String, Source>();
+    private static I18nLanguage i18n = null;
 
     private Source source;
     private Context context;
@@ -35,12 +34,19 @@ public class JavascriptContext {
     private Script script;
     private File file;
 
+    {
+        if (i18n == null) {
+            i18n = SpigotJsApi.getInstance().getI18n().getCurrentLanguage();
+        }
+    }
+
     public JavascriptContext() throws IOException {
         threadClassLoader = Thread.currentThread().getContextClassLoader();
         graalClassLoader = getClass().getClassLoader();
         file = null;
         switchClassLoader();
-        context = Context.newBuilder("js").allowAllAccess(true).allowExperimentalOptions(true).build();
+        context = Context.newBuilder("js").allowAllAccess(true).engine(SpigotJsApi.getInstance().getPolyglotEngine()).build();
+        addBaseObjects();
         switchClassLoader();
     }
 
@@ -56,30 +62,13 @@ public class JavascriptContext {
         try {
             file = new File(url.toURI());
         } catch (IllegalArgumentException ex) {
-            // Do nothing as the URL could not lead to a real file
+            // Do nothing as the URL may not lead to a file
         }
     }
 
     public void setScript(Script script) throws IOException {
         switchClassLoader();
         this.script = script;
-        Function<String, Object> require = (id) -> {
-            if (id.equals("spigotjs")) {
-                return this.script.getLinker();
-            }
-            if (REQUIRE_PATH.containsKey(id)) {
-                return REQUIRE_PATH.get(id);
-            }
-            if (id.startsWith("./")) {
-                // File importedFile = new File(file == null ? SpigotJs.getInstance().getDataFolder() : file.getParentFile(), id);
-
-                // if (importedFile.exists()) {
-                //     return execute(importedFile);
-                // }
-            }
-            return null;
-        };
-        context.getBindings("js").putMember("require", require);
         switchClassLoader();
     }
 
@@ -163,7 +152,66 @@ public class JavascriptContext {
         }
     }
 
+    private void addBaseObjects() throws IOException {
+        Function<String, Object> require = (id) -> {
+            if (script != null && id.equals("spigotjs")) {
+                return this.script.getLinker();
+            }
+            if (REQUIRE_PATH.containsKey(id)) {
+                return context.eval(REQUIRE_PATH.get(id)).execute();
+            }
+            if (id.startsWith("./")) {
+                if (!SpigotJs.getInstance().getSpigotJsConfig().getEnableExperimentalFeatures()) {
+                    Bukkit.getLogger().warning(i18n.get("script.error.experimentalFeature",
+                            script == null ? "(unknown)" : script.getDescription().toShortString(),
+                            "local file imports"));
+                }
+
+                File importedFile;
+
+                if (file == null || file.getParentFile() == null) {
+                    importedFile = new File(SpigotJs.getInstance().getDataFolder(), id);
+                } else {
+                    importedFile = new File(file.getParentFile(), id);
+                }
+
+                Bukkit.getLogger().info(importedFile.getAbsolutePath());
+                if (importedFile.exists()) {
+                    try {
+                        StringBuilder code = new StringBuilder();
+                        Source source;
+
+                        code.append("(() => { const module = { exports: null };\n");
+                        code.append(readFile(importedFile));
+                        code.append("; return module.exports; });");
+                        source = Source.newBuilder("js", code.toString(), null).build();
+                        Bukkit.getLogger().info(source.getCharacters().toString());
+                        return context.eval(source).execute();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return context.eval("js", "{}");
+                    }
+                }
+            }
+            return null;
+        };
+        context.getBindings("js").putMember("require", require);
+    }
+
+    private String readFile(File file) throws IOException {
+        FileReader fileReader = new FileReader(file);
+        BufferedReader reader = new BufferedReader(fileReader);
+        StringBuilder contents = new StringBuilder();
+
+        for (String line = reader.readLine(); line != null; line = reader.readLine()) {
+            contents.append(line);
+        }
+        reader.close();
+        fileReader.close();
+        return contents.toString();
+    }
+
     public static void loadLibs(Plugin plugin) {
-        // plugin.getClass().getResourceAsStream(name)
+        // Load libraries
     }
 }

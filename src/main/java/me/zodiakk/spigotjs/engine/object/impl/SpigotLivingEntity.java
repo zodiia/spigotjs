@@ -1,251 +1,231 @@
 package me.zodiakk.spigotjs.engine.object.impl;
 
+import org.bukkit.attribute.Attribute;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+
 import me.zodiakk.spigotjs.engine.object.JsEntity;
 import me.zodiakk.spigotjs.engine.object.JsLivingEntity;
 import me.zodiakk.spigotjs.engine.object.JsLocation;
 import me.zodiakk.spigotjs.engine.object.JsPlayer;
 
 public class SpigotLivingEntity extends SpigotEntity implements JsLivingEntity {
+    private LivingEntity entity;
+
+    public SpigotLivingEntity(LivingEntity entity) {
+        super(entity);
+        this.entity = entity;
+    }
+
+    @Override
+    public <T> T java(Class<T> clazz) {
+        if (clazz.isInstance(entity)) {
+            return clazz.cast(entity);
+        }
+        return null;
+    }
 
     @Override
     public boolean addPotionEffect(String type, Number duration) {
-        // TODO Auto-generated method stub
-        return false;
+        return entity.addPotionEffect(new PotionEffect(PotionEffectType.getByName(type.toUpperCase()), duration.intValue(), 0));
     }
 
     @Override
     public boolean addPotionEffect(String type, Number duration, Number amplifier) {
-        // TODO Auto-generated method stub
-        return false;
+        return entity.addPotionEffect(new PotionEffect(PotionEffectType.getByName(type.toUpperCase()), duration.intValue(), amplifier.intValue()));
     }
 
     @Override
     public boolean addPotionEffect(String type, Number duration, Number amplifier, boolean ambient) {
-        // TODO Auto-generated method stub
-        return false;
+        return entity.addPotionEffect(new PotionEffect(PotionEffectType.getByName(type.toUpperCase()), duration.intValue(), amplifier.intValue(), ambient));
     }
 
     @Override
     public boolean addPotionEffect(String type, Number duration, Number amplifier, boolean ambient, boolean particles) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean addPotionEffect(String type, Number duration, Number amplifier, boolean ambient, boolean particles,
-            boolean force) {
-        // TODO Auto-generated method stub
-        return false;
+        return entity.addPotionEffect(new PotionEffect(PotionEffectType.getByName(type.toUpperCase()), duration.intValue(), amplifier.intValue(), ambient, particles));
     }
 
     @Override
     public String[] getActivePotionEffects() {
-        // TODO Auto-generated method stub
-        return null;
+        String[] res = new String[entity.getActivePotionEffects().size()];
+        int i = 0;
+
+        for (PotionEffect effect : entity.getActivePotionEffects()) {
+            res[i] = effect.getType().toString().toLowerCase();
+            i++;
+        }
+        return res;
     }
 
     @Override
     public boolean getCanPickupItems() {
-        // TODO Auto-generated method stub
-        return false;
+        return entity.getCanPickupItems();
     }
 
     @Override
     public Number getEyeHeight() {
-        // TODO Auto-generated method stub
-        return null;
+        return entity.getEyeHeight();
     }
 
     @Override
     public Number getEyeHeight(Boolean ignorePose) {
-        // TODO Auto-generated method stub
-        return null;
+        return entity.getEyeHeight(ignorePose);
     }
 
     @Override
     public JsLocation getEyeLocation() {
-        // TODO Auto-generated method stub
-        return null;
+        return new SpigotLocation(entity.getEyeLocation());
     }
 
     @Override
     public JsPlayer getKiller() {
-        // TODO Auto-generated method stub
-        return null;
+        return new SpigotPlayer(entity.getKiller());
     }
 
     @Override
     public Number getLastDamage() {
-        // TODO Auto-generated method stub
-        return null;
+        return entity.getLastDamage();
     }
 
     @Override
     public JsEntity getLeashHolder() {
-        // TODO Auto-generated method stub
-        return null;
+        return new SpigotEntity(entity.getLeashHolder());
     }
 
     @Override
     public Number getMaximumAir() {
-        // TODO Auto-generated method stub
-        return null;
+        return entity.getMaximumAir();
     }
 
     @Override
     public Number getMaximumNoDamageTicks() {
-        // TODO Auto-generated method stub
-        return null;
+        return entity.getMaximumNoDamageTicks();
     }
 
     @Override
     public Number getNoDamageTicks() {
-        // TODO Auto-generated method stub
-        return null;
+        return entity.getNoDamageTicks();
     }
 
     @Override
     public boolean getPotionEffectAmbient(String type) {
-        // TODO Auto-generated method stub
-        return false;
+        return entity.getPotionEffect(PotionEffectType.getByName(type.toUpperCase())).isAmbient();
     }
 
     @Override
     public Number getPotionEffectAmplifier(String type) {
-        // TODO Auto-generated method stub
-        return null;
+        return entity.getPotionEffect(PotionEffectType.getByName(type.toUpperCase())).getAmplifier();
     }
 
     @Override
     public Number getPotionEffectDuration(String type) {
-        // TODO Auto-generated method stub
-        return null;
+        return entity.getPotionEffect(PotionEffectType.getByName(type.toUpperCase())).getDuration();
     }
 
     @Override
     public boolean getPotionEffectParticles(String type) {
-        // TODO Auto-generated method stub
-        return false;
+        return entity.getPotionEffect(PotionEffectType.getByName(type.toUpperCase())).hasParticles();
     }
 
     @Override
     public Number getRemainingAir() {
-        // TODO Auto-generated method stub
-        return null;
+        return entity.getRemainingAir();
     }
 
     @Override
     public boolean getRemoveWhenFarAway() {
-        // TODO Auto-generated method stub
-        return false;
+        return entity.getRemoveWhenFarAway();
     }
 
     @Override
     public boolean hasPotionEffect(String type) {
-        // TODO Auto-generated method stub
-        return false;
+        return entity.hasPotionEffect(PotionEffectType.getByName(type.toUpperCase()));
     }
 
     @Override
     public boolean isLeashed() {
-        // TODO Auto-generated method stub
-        return false;
+        return entity.isLeashed();
     }
 
     @Override
     public void removePotionEffect(String type) {
-        // TODO Auto-generated method stub
-
+        entity.removePotionEffect(PotionEffectType.getByName(type));
     }
 
     @Override
     public void setCanPickupItems(Boolean pickup) {
-        // TODO Auto-generated method stub
-
+        entity.setCanPickupItems(pickup);
     }
 
     @Override
     public void setLastDamage(Number damage) {
-        // TODO Auto-generated method stub
-
+        entity.setLastDamage(damage.doubleValue());
     }
 
     @Override
     public void setLeashHolder(JsEntity holder) {
-        // TODO Auto-generated method stub
-
+        entity.setLeashHolder(holder.java(Entity.class));
     }
 
     @Override
     public void setMaximumAir(Number ticks) {
-        // TODO Auto-generated method stub
-
+        entity.setMaximumAir(ticks.intValue());
     }
 
     @Override
     public void setMaximumNoDamageTicks(Number ticks) {
-        // TODO Auto-generated method stub
-
+        entity.setMaximumNoDamageTicks(ticks.intValue());
     }
 
     @Override
     public void setNoDamageTicks(Number ticks) {
-        // TODO Auto-generated method stub
-
+        entity.setNoDamageTicks(ticks.intValue());
     }
 
     @Override
     public void setRemainingAir(Number ticks) {
-        // TODO Auto-generated method stub
-
+        entity.setRemainingAir(ticks.intValue());
     }
 
     @Override
     public void setRemoveWhenFarAway(Boolean remove) {
-        // TODO Auto-generated method stub
-
+        entity.setRemoveWhenFarAway(remove);
     }
 
     @Override
     public void damage(Number amount) {
-        // TODO Auto-generated method stub
-
+        entity.damage(amount.doubleValue());
     }
 
     @Override
     public void damage(Number amount, JsEntity source) {
-        // TODO Auto-generated method stub
-
+        entity.damage(amount.doubleValue(), source.java(Entity.class));
     }
 
     @Override
     public Number getHealth() {
-        // TODO Auto-generated method stub
-        return null;
+        return entity.getHealth();
     }
 
     @Override
     public Number getMaxHealth() {
-        // TODO Auto-generated method stub
-        return null;
+        return entity.getMaxHealth();
     }
 
     @Override
     public void resetMaxHealth() {
-        // TODO Auto-generated method stub
-
+        entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getModifiers().forEach(modifier -> entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).removeModifier(modifier));
     }
 
     @Override
     public void setHealth(Number amount) {
-        // TODO Auto-generated method stub
-
+        entity.setHealth(amount.doubleValue());
     }
 
     @Override
     public void setMaxHealth(Number amount) {
-        // TODO Auto-generated method stub
-
+        entity.setMaxHealth(amount.doubleValue());
     }
-
 }

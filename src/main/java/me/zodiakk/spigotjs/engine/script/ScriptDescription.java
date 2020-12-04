@@ -12,7 +12,6 @@ public class ScriptDescription {
 
     private String name = "";
     private String scriptVersion = "";
-    private String apiVersion = "";
     private McVersion mcVersion = McVersion.current();
     private List<String> authors = new ArrayList<String>();
     private String description = "";
@@ -24,7 +23,6 @@ public class ScriptDescription {
     public void fromValue(Value descValue) {
         Value nameValue = getMember(descValue, "name");
         Value scriptVersionValue = getMember(descValue, "version", "scriptVersion", "script-version", "script_version");
-        Value apiVersionValue = getMember(descValue, "apiVersion", "api-version", "api_version");
         Value mcVersionValue = getMember(descValue, "mcVersion", "mc-version", "mc_version", "minecraftVersion", "minecraft-version", "minecraft_version");
         Value authorsValue = getMember(descValue, "author", "authors");
         Value descriptionValue = getMember(descValue, "description", "desc");
@@ -34,9 +32,6 @@ public class ScriptDescription {
         }
         if (scriptVersionValue != null) {
             scriptVersion = scriptVersionValue.asString();
-        }
-        if (apiVersion != null) {
-            apiVersion = apiVersionValue.asString();
         }
         if (mcVersionValue != null) {
             mcVersion = McVersion.fromString(mcVersionValue.asString());
@@ -100,10 +95,6 @@ public class ScriptDescription {
 
     public String getScriptVersion() {
         return scriptVersion;
-    }
-
-    public String getApiVersion() {
-        return apiVersion;
     }
 
     public McVersion getMinecraftVersion() {

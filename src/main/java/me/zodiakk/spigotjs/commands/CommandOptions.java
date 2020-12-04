@@ -25,6 +25,7 @@ public final class CommandOptions {
         return options.get(option);
     }
 
+    // FIXME: Needs refactoring
     private void parseArguments(String[] args, String optstring) {
         Map<Character, Boolean> options = new HashMap<Character, Boolean>();
         char[] optstringArray = optstring.toCharArray();

@@ -11,7 +11,8 @@
   "script": {
     "error": {
       "noSuchEventType": "&eWarning: &7Script {{0}} tried to register an unknown event type: {{1}}.",
-      "invalidDescription": "&cError: &7Script file {{0}} has an invalid description."
+      "invalidDescription": "&cError: &7Script file {{0}} has an invalid description.",
+      "experimentalFeature": "Script {{0}} tried to use {{1}}, which is an experimental feature."
     }
   },
   "command": {
@@ -96,7 +97,10 @@
           "  &3-a   &7List all scripts (including non-running ones)",
           "  &3-p   &7Only list paused scripts",
           "  &3-u   &7Only list running and unpaused scripts"
-        ]
+        ],
+        "enabledScript": "&8[&2&lE&8] &7{{0}}",
+        "pausedScript": "&8[&e&lP&8] &7{{0}}",
+        "disabledScript": "&8[&c&lD&8] &7{{0}}"
       },
       "run": {
         "?": [

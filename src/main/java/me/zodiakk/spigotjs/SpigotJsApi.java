@@ -3,6 +3,8 @@ package me.zodiakk.spigotjs;
 import java.io.File;
 import java.io.IOException;
 
+import org.graalvm.polyglot.Engine;
+
 import me.zodiakk.spigotjs.engine.JavascriptContext;
 import me.zodiakk.spigotjs.engine.ScriptManager;
 import me.zodiakk.spigotjs.i18n.I18n;
@@ -12,6 +14,7 @@ import me.zodiakk.spigotjs.i18n.I18n;
  */
 public class SpigotJsApi {
     private static final SpigotJsApi INSTANCE = new SpigotJsApi();
+    private final Engine engine;
     private final I18n i18n;
     private final ScriptManager scriptManager;
 
@@ -22,6 +25,11 @@ public class SpigotJsApi {
             throw new IllegalStateException(ex);
         }
         scriptManager = new ScriptManager();
+
+        ClassLoader threadClassLoader = Thread.currentThread().getContextClassLoader();
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+        engine = Engine.create();
+        Thread.currentThread().setContextClassLoader(threadClassLoader);
     }
 
     /**
@@ -46,5 +54,9 @@ public class SpigotJsApi {
 
     public ScriptManager getScriptManager() {
         return scriptManager;
+    }
+
+    public Engine getPolyglotEngine() {
+        return engine;
     }
 }

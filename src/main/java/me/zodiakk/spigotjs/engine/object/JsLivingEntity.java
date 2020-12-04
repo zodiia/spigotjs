@@ -5,7 +5,6 @@ public interface JsLivingEntity extends JsEntity {
     public boolean addPotionEffect(String type, Number duration, Number amplifier);
     public boolean addPotionEffect(String type, Number duration, Number amplifier, boolean ambient);
     public boolean addPotionEffect(String type, Number duration, Number amplifier, boolean ambient, boolean particles);
-    public boolean addPotionEffect(String type, Number duration, Number amplifier, boolean ambient, boolean particles, boolean force);
     public String[] getActivePotionEffects();
     public boolean getCanPickupItems();
     public Number getEyeHeight();

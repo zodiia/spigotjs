@@ -1,5 +1,8 @@
 package me.zodiakk.spigotjs.engine.object.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
@@ -53,14 +56,18 @@ public class SpigotBlock implements JsBlock {
 
     @Override
     public JsItemStack[] getDrops() {
-        // TODO: SpigotItemStack implementation
-        return null;
+        List<JsItemStack> stacks = new ArrayList<JsItemStack>();
+
+        block.getDrops().forEach(stack -> stacks.add(new SpigotItemStack(stack)));
+        return stacks.toArray(new JsItemStack[0]);
     }
 
     @Override
     public JsItemStack[] getDrops(JsItemStack tool) {
-        // TODO: SpigotItemStack implementation
-        return null;
+        List<JsItemStack> stacks = new ArrayList<JsItemStack>();
+
+        block.getDrops(tool.java(ItemStack.class)).forEach(stack -> stacks.add(new SpigotItemStack(stack)));
+        return stacks.toArray(new JsItemStack[0]);
     }
 
     @Override

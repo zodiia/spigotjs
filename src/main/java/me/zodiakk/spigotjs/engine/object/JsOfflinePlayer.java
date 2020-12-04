@@ -1,13 +1,9 @@
 package me.zodiakk.spigotjs.engine.object;
 
-import org.graalvm.polyglot.Value;
-
 public interface JsOfflinePlayer extends ApiElement {
-    public void ban(String reason, Value expiresDate);
-    public void pardon();
     public JsLocation getBedSpawnLocation();
-    public long getFirstPlayed();
-    public long getLastPlayed();
+    public Number getFirstPlayed();
+    public Number getLastPlayed();
     public String getName();
     public JsPlayer getPlayer();
     public String getUniqueId();

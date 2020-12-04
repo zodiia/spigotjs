@@ -62,7 +62,7 @@ public class I18nLanguage {
             return null;
         }
         for (int i = 0; i < arguments.length; i++) {
-            line.replaceAll("\\{\\{" + i + "\\}\\}", arguments[i].toString());
+            line = line.replaceAll("\\{\\{" + i + "\\}\\}", arguments[i].toString());
         }
         return ChatColor.translateAlternateColorCodes('&', line);
     }

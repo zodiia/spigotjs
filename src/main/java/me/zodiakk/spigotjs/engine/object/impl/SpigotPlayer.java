@@ -1,7 +1,12 @@
 package me.zodiakk.spigotjs.engine.object.impl;
 
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Sound;
+import org.bukkit.WeatherType;
 import org.bukkit.entity.Player;
-import org.graalvm.polyglot.Value;
+import org.bukkit.inventory.ItemStack;
 
 import me.zodiakk.spigotjs.engine.object.JsItemStack;
 import me.zodiakk.spigotjs.engine.object.JsLocation;
@@ -11,6 +16,7 @@ public class SpigotPlayer extends SpigotLivingEntity implements JsPlayer {
     private Player player;
 
     public SpigotPlayer(Player player) {
+        super(player);
         this.player = player;
     }
 
@@ -23,494 +29,423 @@ public class SpigotPlayer extends SpigotLivingEntity implements JsPlayer {
     }
 
     @Override
-    public void ban(String reason, Value expiresDate) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void pardon() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public JsLocation getBedSpawnLocation() {
-        // TODO Auto-generated method stub
-        return null;
+        return new SpigotLocation(player.getBedSpawnLocation());
     }
 
     @Override
-    public long getFirstPlayed() {
-        // TODO Auto-generated method stub
-        return 0;
+    public Number getFirstPlayed() {
+        return player.getFirstPlayed();
     }
 
     @Override
-    public long getLastPlayed() {
-        // TODO Auto-generated method stub
-        return 0;
+    public Number getLastPlayed() {
+        return player.getLastPlayed();
+    }
+
+    @Override
+    public String getName() {
+        return player.getName();
     }
 
     @Override
     public JsPlayer getPlayer() {
-        // TODO Auto-generated method stub
-        return null;
+        return new SpigotPlayer(player.getPlayer());
+    }
+
+    @Override
+    public String getUniqueId() {
+        return player.getUniqueId().toString();
     }
 
     @Override
     public boolean hasPlayedBefore() {
-        // TODO Auto-generated method stub
-        return false;
+        return player.hasPlayedBefore();
     }
 
     @Override
     public boolean isBanned() {
-        // TODO Auto-generated method stub
-        return false;
+        return player.isBanned();
     }
 
     @Override
     public boolean isOnline() {
-        // TODO Auto-generated method stub
-        return false;
+        return player.isOnline();
     }
 
     @Override
     public boolean isOp() {
-        // TODO Auto-generated method stub
-        return false;
+        return player.isOp();
     }
 
     @Override
     public boolean isWhitelisted() {
-        // TODO Auto-generated method stub
-        return false;
+        return player.isWhitelisted();
     }
 
     @Override
     public void setOp(Boolean value) {
-        // TODO Auto-generated method stub
-
+        player.setOp(value);
     }
 
     @Override
     public void setWhitelisted(Boolean value) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void awardAchievement(String achievement) {
-        // TODO Auto-generated method stub
-
+        player.setWhitelisted(value);
     }
 
     @Override
     public void chat(String message) {
-        // TODO Auto-generated method stub
-
+        player.chat(ChatColor.translateAlternateColorCodes('&', message));
     }
 
     @Override
     public boolean getAllowFlight() {
-        // TODO Auto-generated method stub
-        return false;
+        return player.getAllowFlight();
     }
 
     @Override
     public JsLocation getCompassTarget() {
-        // TODO Auto-generated method stub
-        return null;
+        return new SpigotLocation(player.getCompassTarget());
     }
 
     @Override
     public String getDisplayName() {
-        // TODO Auto-generated method stub
-        return null;
+        return player.getDisplayName();
     }
 
     @Override
     public Number getExhaustion() {
-        // TODO Auto-generated method stub
-        return null;
+        return player.getExhaustion();
     }
 
     @Override
     public Number getExp() {
-        // TODO Auto-generated method stub
-        return null;
+        return player.getExp();
     }
 
     @Override
     public Number getFlySpeed() {
-        // TODO Auto-generated method stub
-        return null;
+        return player.getFlySpeed();
     }
 
     @Override
     public Number getFoodLevel() {
-        // TODO Auto-generated method stub
-        return null;
+        return player.getFoodLevel();
     }
 
     @Override
     public Number getHealthScale() {
-        // TODO Auto-generated method stub
-        return null;
+        return player.getHealthScale();
     }
 
     @Override
     public Number getLevel() {
-        // TODO Auto-generated method stub
-        return null;
+        return player.getLevel();
     }
 
     @Override
     public String getListName() {
-        // TODO Auto-generated method stub
-        return null;
+        return player.getPlayerListName();
     }
 
     @Override
     public Number getPlayerTime() {
-        // TODO Auto-generated method stub
-        return null;
+        return player.getPlayerTime();
     }
 
     @Override
     public Number getPlayerTimeOffset() {
-        // TODO Auto-generated method stub
-        return null;
+        return player.getPlayerTimeOffset();
     }
 
     @Override
     public String getPlayerWeather() {
-        // TODO Auto-generated method stub
-        return null;
+        return player.getPlayerWeather().toString().toLowerCase();
     }
 
     @Override
     public Number getSaturation() {
-        // TODO Auto-generated method stub
-        return null;
+        return player.getSaturation();
     }
 
     @Override
     public Number getTotalExperience() {
-        // TODO Auto-generated method stub
-        return null;
+        return player.getTotalExperience();
     }
 
     @Override
     public Number getWalkSpeed() {
-        // TODO Auto-generated method stub
-        return null;
+        return player.getWalkSpeed();
     }
 
     @Override
     public void giveExp(Number amount) {
-        // TODO Auto-generated method stub
-
+        player.giveExp(amount.intValue());
     }
 
     @Override
     public void giveExpLevels(Number levels) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public boolean hasAchievement(String achievement) {
-        // TODO Auto-generated method stub
-        return false;
+        player.giveExpLevels(levels.intValue());
     }
 
     @Override
     public boolean isFlying() {
-        // TODO Auto-generated method stub
-        return false;
+        return player.isFlying();
     }
 
     @Override
     public boolean isHealthScaled() {
-        // TODO Auto-generated method stub
-        return false;
+        return player.isHealthScaled();
     }
 
     @Override
     public boolean isPlayerTimeRelative() {
-        // TODO Auto-generated method stub
-        return false;
+        return player.isPlayerTimeRelative();
     }
 
     @Override
     public boolean isSneaking() {
-        // TODO Auto-generated method stub
-        return false;
+        return player.isSneaking();
     }
 
     @Override
     public boolean isSprinting() {
-        // TODO Auto-generated method stub
-        return false;
+        return player.isSprinting();
     }
 
     @Override
     public void kick(String reason) {
-        // TODO Auto-generated method stub
-
+        player.kickPlayer(reason);
     }
 
     @Override
     public void runCommand(String command) {
-        // TODO Auto-generated method stub
-
+        player.performCommand(command);
     }
 
     @Override
     public void playSound(String sound, Number volume, Number pitch) {
-        // TODO Auto-generated method stub
-
+        player.playSound(player.getLocation(), Sound.valueOf(sound.toUpperCase()), volume.floatValue(), pitch.floatValue());
     }
 
     @Override
     public void playSound(String sound, Number volume, Number pitch, JsLocation location) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void removeAchievement(String achievement) {
-        // TODO Auto-generated method stub
-
+        player.playSound(location.java(Location.class), Sound.valueOf(sound.toUpperCase()), volume.floatValue(), pitch.floatValue());
     }
 
     @Override
     public void resetPlayerTime() {
-        // TODO Auto-generated method stub
-
+        player.resetPlayerTime();
     }
 
     @Override
     public void sendMessage(String message) {
-        // TODO Auto-generated method stub
-
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
     }
 
     @Override
     public void sendMessage(String[] messages) {
-        // TODO Auto-generated method stub
-
+        for (int i = 0; i < messages.length; i++) {
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages[i]));
+        }
     }
 
     @Override
     public void setAllowFlight(Boolean allowFlight) {
-        // TODO Auto-generated method stub
-
+        player.setAllowFlight(allowFlight);
     }
 
     @Override
     public void setBedSpawnLocation(JsLocation location) {
-        // TODO Auto-generated method stub
-
+        player.setBedSpawnLocation(location.java(Location.class));
     }
 
     @Override
     public void setCompassTarget(JsLocation location) {
-        // TODO Auto-generated method stub
-
+        player.setCompassTarget(location.java(Location.class));
     }
 
     @Override
     public void setDisplayName(String displayName) {
-        // TODO Auto-generated method stub
-
+        player.setDisplayName(displayName);
     }
 
     @Override
     public void setExhaustion(Number value) {
-        // TODO Auto-generated method stub
-
+        player.setExhaustion(value.floatValue());
     }
 
     @Override
     public void setExp(Number exp) {
-        // TODO Auto-generated method stub
-
+        player.setExp(exp.floatValue());
     }
 
     @Override
     public void setFlying(Boolean flying) {
-        // TODO Auto-generated method stub
-
+        player.setFlying(flying);
     }
 
     @Override
     public void setFlySpeed(Number flySpeed) {
-        // TODO Auto-generated method stub
-
+        player.setFlySpeed(flySpeed.floatValue());
     }
 
     @Override
     public void setFoodLevel(Number foodLevel) {
-        // TODO Auto-generated method stub
-
+        player.setFoodLevel(foodLevel.intValue());
     }
 
     @Override
     public void setHealthScale(Number healthScale) {
-        // TODO Auto-generated method stub
-
+        player.setHealthScale(healthScale.doubleValue());
     }
 
     @Override
     public void setHealthScaled(Boolean healthScaled) {
-        // TODO Auto-generated method stub
-
+        player.setHealthScaled(healthScaled);
     }
 
     @Override
     public void setLevel(Number level) {
-        // TODO Auto-generated method stub
-
+        player.setLevel(level.intValue());
     }
 
     @Override
     public void setPlayerListName(String name) {
-        // TODO Auto-generated method stub
-
+        player.setPlayerListName(name);
     }
 
     @Override
     public void setPlayerTime(Number time, Boolean relative) {
-        // TODO Auto-generated method stub
-
+        player.setPlayerTime(time.longValue(), relative);
     }
 
     @Override
     public void setPlayerWeather(String weather) {
-        // TODO Auto-generated method stub
-
+        player.setPlayerWeather(WeatherType.valueOf(weather.toUpperCase()));
     }
 
     @Override
     public void setSaturation(Number saturation) {
-        // TODO Auto-generated method stub
-
+        player.setSaturation(saturation.floatValue());
     }
 
     @Override
     public void setSneaking(Boolean sneaking) {
-        // TODO Auto-generated method stub
-
+        player.setSneaking(sneaking);
     }
 
     @Override
     public void setSprinting(Boolean sprinting) {
-        // TODO Auto-generated method stub
-
+        player.setSprinting(sprinting);
     }
 
     @Override
     public void setTotalExperience(Number totalExperience) {
-        // TODO Auto-generated method stub
-
+        player.setTotalExperience(totalExperience.intValue());
     }
 
     @Override
     public void setWalkSpeed(Number walkSpeed) {
-        // TODO Auto-generated method stub
-
+        player.setWalkSpeed(walkSpeed.floatValue());
     }
 
     @Override
     public void closeInventory() {
-        // TODO Auto-generated method stub
-
+        player.closeInventory();
     }
 
     @Override
     public JsItemStack[] getEnderChest() {
-        // TODO Auto-generated method stub
-        return null;
+        JsItemStack[] stacks = new JsItemStack[player.getEnderChest().getContents().length];
+        int i = 0;
+
+        for (ItemStack stack : player.getEnderChest().getContents()) {
+            stacks[i++] = new SpigotItemStack(stack);
+        }
+        return stacks;
     }
 
     @Override
     public String getGameMode() {
-        // TODO Auto-generated method stub
-        return null;
+        return player.getGameMode().toString().toLowerCase();
     }
 
     @Override
     public JsItemStack[] getInventory() {
-        // TODO Auto-generated method stub
-        return null;
+        JsItemStack[] stacks = new JsItemStack[player.getInventory().getContents().length];
+        int i = 0;
+
+        for (ItemStack stack : player.getInventory().getContents()) {
+            stacks[i++] = new SpigotItemStack(stack);
+        }
+        return stacks;
     }
 
     @Override
     public JsItemStack getItemInMainHand() {
-        // TODO Auto-generated method stub
-        return null;
+        return new SpigotItemStack(player.getInventory().getItemInMainHand());
     }
 
     @Override
     public JsItemStack getItemInOffHand() {
-        // TODO Auto-generated method stub
-        return null;
+        return new SpigotItemStack(player.getInventory().getItemInOffHand());
     }
 
     @Override
     public JsItemStack getItemOnCursor() {
-        // TODO Auto-generated method stub
-        return null;
+        return new SpigotItemStack(player.getItemOnCursor());
     }
 
     @Override
     public boolean isBlocking() {
-        // TODO Auto-generated method stub
-        return false;
+        return player.isBlocking();
     }
 
     @Override
     public boolean isSleeping() {
-        // TODO Auto-generated method stub
-        return false;
+        return player.isSleeping();
     }
 
     @Override
     public void setEnderChest(JsItemStack[] items) {
-        // TODO Auto-generated method stub
+        ItemStack[] stacks = new ItemStack[items.length];
+        int i = 0;
 
+        for (JsItemStack stack : items) {
+            stacks[i++] = stack.java(ItemStack.class);
+        }
+        player.getEnderChest().setContents(stacks);
     }
 
     @Override
     public void setGameMode(String gameMode) {
-        // TODO Auto-generated method stub
-
+        player.setGameMode(GameMode.valueOf(gameMode.toUpperCase()));
     }
 
     @Override
     public void setInventory(JsItemStack[] items) {
-        // TODO Auto-generated method stub
+        ItemStack[] stacks = new ItemStack[items.length];
+        int i = 0;
 
+        for (JsItemStack stack : items) {
+            stacks[i++] = stack.java(ItemStack.class);
+        }
+        player.getInventory().setContents(stacks);
     }
 
     @Override
     public void setItemInMainHand(JsItemStack item) {
-        // TODO Auto-generated method stub
-
+        player.getInventory().setItemInMainHand(item.java(ItemStack.class));
     }
 
     @Override
     public void setItemInOffHand(JsItemStack item) {
-        // TODO Auto-generated method stub
-
+        player.getInventory().setItemInOffHand(item.java(ItemStack.class));
     }
 
     @Override
     public boolean hasPermission(String permission) {
-        // TODO Auto-generated method stub
-        return false;
+        return player.hasPermission(permission);
     }
 }

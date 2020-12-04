@@ -4,6 +4,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 
 import me.zodiakk.spigotjs.engine.object.JsPlayer;
 import me.zodiakk.spigotjs.engine.object.event.JsBlockBreakEvent;
+import me.zodiakk.spigotjs.engine.object.impl.SpigotPlayer;
 
 public class SpigotBlockBreakEvent extends SpigotBlockExpEvent implements JsBlockBreakEvent {
     private BlockBreakEvent event;
@@ -14,8 +15,7 @@ public class SpigotBlockBreakEvent extends SpigotBlockExpEvent implements JsBloc
     }
 
     public JsPlayer getPlayer() {
-        // TODO: SpigotPlayer implementation
-        return null;
+        return new SpigotPlayer(event.getPlayer());
     }
 
     public boolean getDropItems() {

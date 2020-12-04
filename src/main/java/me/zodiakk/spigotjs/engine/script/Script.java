@@ -18,6 +18,7 @@ public class Script {
     private JavascriptContext context;
     private String fileName = "";
     private boolean isPaused = true;
+    private boolean isEnabled = false;
 
     public Script() {
         linker = new ScriptLinker(this);
@@ -59,12 +60,14 @@ public class Script {
 
     public void enable() {
         isPaused = false;
+        isEnabled = true;
         eventManager.onEvent(EventType.ENABLE, new SpigotServer(Bukkit.getServer()));
     }
 
     public void disable() {
         eventManager.onEvent(EventType.DISABLE, new SpigotServer(Bukkit.getServer()));
         isPaused = true;
+        isEnabled = false;
     }
 
     public void reload() {
@@ -77,6 +80,10 @@ public class Script {
 
     public boolean isPaused() {
         return isPaused;
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
     }
 
     public void pause() {

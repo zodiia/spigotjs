@@ -49,7 +49,7 @@ public interface JsServer extends ApiElement {
     // Properties
     public JsOfflinePlayer[]    getBannedPlayers();
     public String[]             getBannedIps();
-    public JsOfflinePlayer      getOfflinePlayer(String player);
+    public JsOfflinePlayer      getOfflinePlayer(String uuid);
     public JsOfflinePlayer[]    getOfflinePlayers();
     public JsPlayer             getPlayer(String player);
     public JsPlayer[]           getPlayers();

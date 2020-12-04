@@ -42,4 +42,8 @@ public class ScriptManager {
             script.disable();
         }
     }
+
+    public Set<Script> getScripts() {
+        return new HashSet<Script>(registeredScripts);
+    }
 }

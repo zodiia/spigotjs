@@ -7,6 +7,8 @@ import me.zodiakk.spigotjs.engine.object.JsItemStack;
 import me.zodiakk.spigotjs.engine.object.JsPlayer;
 import me.zodiakk.spigotjs.engine.object.event.JsBlockPlaceEvent;
 import me.zodiakk.spigotjs.engine.object.impl.SpigotBlock;
+import me.zodiakk.spigotjs.engine.object.impl.SpigotItemStack;
+import me.zodiakk.spigotjs.engine.object.impl.SpigotPlayer;
 
 public class SpigotBlockPlaceEvent extends SpigotBlockEvent implements JsBlockPlaceEvent {
     private BlockPlaceEvent event;
@@ -28,14 +30,12 @@ public class SpigotBlockPlaceEvent extends SpigotBlockEvent implements JsBlockPl
 
     @Override
     public JsItemStack getItemInHand() {
-        // TODO: SpigotItemStack
-        return null;
+        return new SpigotItemStack(event.getItemInHand());
     }
 
     @Override
     public JsPlayer getPlayer() {
-        // TODO: SpigotPlayer
-        return null;
+        return new SpigotPlayer(event.getPlayer());
     }
 
     @Override

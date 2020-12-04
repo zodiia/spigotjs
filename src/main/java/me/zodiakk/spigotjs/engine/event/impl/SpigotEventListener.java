@@ -10,6 +10,7 @@ import me.zodiakk.spigotjs.engine.event.EventType;
 import me.zodiakk.spigotjs.engine.event.JsEventListener;
 import me.zodiakk.spigotjs.engine.object.impl.SpigotServer;
 import me.zodiakk.spigotjs.engine.script.Script;
+import me.zodiakk.spigotjs.engine.script.ScriptException;
 
 public abstract class SpigotEventListener implements JsEventListener, Listener {
     private static Plugin PLUGIN;
@@ -40,8 +41,12 @@ public abstract class SpigotEventListener implements JsEventListener, Listener {
     }
 
     @Override
-    public void onEvent(Object args) {
-        callback.executeVoid(args, new SpigotServer(Bukkit.getServer()));
+    public void onEvent(Object arg) {
+        try {
+            callback.executeVoid(arg, new SpigotServer(Bukkit.getServer()));
+        } catch (Throwable th) {
+            throw new ScriptException(script, th);
+        }
     }
 
     @Override

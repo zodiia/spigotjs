@@ -1,7 +1,6 @@
 package me.zodiakk.spigotjs.engine.object;
 
 public interface JsPlayer extends JsOfflinePlayer, JsLivingEntity {
-    public void awardAchievement(String achievement);
     public void chat(String message);
     public boolean getAllowFlight();
     public JsLocation getCompassTarget();
@@ -21,7 +20,6 @@ public interface JsPlayer extends JsOfflinePlayer, JsLivingEntity {
     public Number getWalkSpeed();
     public void giveExp(Number amount);
     public void giveExpLevels(Number levels);
-    public boolean hasAchievement(String achievement);
     public boolean isFlying();
     public boolean isHealthScaled();
     public boolean isPlayerTimeRelative();
@@ -31,7 +29,6 @@ public interface JsPlayer extends JsOfflinePlayer, JsLivingEntity {
     public void runCommand(String command);
     public void playSound(String sound, Number volume, Number pitch);
     public void playSound(String sound, Number volume, Number pitch, JsLocation location);
-    public void removeAchievement(String achievement);
     public void resetPlayerTime();
     public void sendMessage(String message);
     public void sendMessage(String[] messages);

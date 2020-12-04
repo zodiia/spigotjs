@@ -1,225 +1,220 @@
 package me.zodiakk.spigotjs.engine.object.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.Location;
+import org.bukkit.entity.Entity;
+import org.bukkit.util.Vector;
+
 import me.zodiakk.spigotjs.engine.object.JsEntity;
 import me.zodiakk.spigotjs.engine.object.JsLocation;
 import me.zodiakk.spigotjs.engine.object.JsWorld;
 
 public class SpigotEntity implements JsEntity {
+    private Entity entity;
+
+    public SpigotEntity(Entity entity) {
+        this.entity = entity;
+    }
 
     @Override
     public <T> T java(Class<T> clazz) {
-        // TODO Auto-generated method stub
+        if (clazz.isInstance(entity)) {
+            return clazz.cast(entity);
+        }
         return null;
     }
 
     @Override
     public boolean ejectPassenger() {
-        // TODO Auto-generated method stub
-        return false;
+        return entity.eject();
     }
 
     @Override
     public String getCustomName() {
-        // TODO Auto-generated method stub
-        return null;
+        return entity.getCustomName();
     }
 
     @Override
     public Number getEntityId() {
-        // TODO Auto-generated method stub
-        return null;
+        return entity.getEntityId();
     }
 
     @Override
     public Number getFallDistance() {
-        // TODO Auto-generated method stub
-        return null;
+        return entity.getFallDistance();
     }
 
     @Override
     public Number getFireTicks() {
-        // TODO Auto-generated method stub
-        return null;
+        return entity.getFireTicks();
     }
 
     @Override
     public JsLocation getLocation() {
-        // TODO Auto-generated method stub
-        return null;
+        return new SpigotLocation(entity.getLocation());
     }
 
     @Override
     public Number getMaxFireTicks() {
-        // TODO Auto-generated method stub
-        return null;
+        return entity.getMaxFireTicks();
     }
 
     @Override
     public String getName() {
-        // TODO Auto-generated method stub
-        return null;
+        return entity.getName();
     }
 
     @Override
     public JsEntity[] getNearbyEntities(Number distance) {
-        // TODO Auto-generated method stub
-        return null;
+        return getNearbyEntities(distance, distance, distance);
     }
 
     @Override
     public JsEntity[] getNearbyEntities(Number x, Number y, Number z) {
-        // TODO Auto-generated method stub
-        return null;
+        List<JsEntity> entities = new ArrayList<JsEntity>();
+
+        entity.getNearbyEntities(x.doubleValue(), y.doubleValue(), z.doubleValue()).forEach(ent -> entities.add(new SpigotEntity(ent)));
+        return entities.toArray(new JsEntity[0]);
     }
 
     @Override
     public JsEntity[] getPassengers() {
-        // TODO Auto-generated method stub
-        return null;
+        List<JsEntity> entities = new ArrayList<JsEntity>();
+
+        entity.getPassengers().forEach(ent -> entities.add(new SpigotEntity(ent)));
+        return entities.toArray(new JsEntity[0]);
     }
 
     @Override
     public Number getTicksLived() {
-        // TODO Auto-generated method stub
-        return null;
+        return entity.getTicksLived();
     }
 
     @Override
     public String getType() {
-        // TODO Auto-generated method stub
-        return null;
+        return entity.getType().toString().toLowerCase();
     }
 
     @Override
     public String getUniqueId() {
-        // TODO Auto-generated method stub
-        return null;
+        return entity.getUniqueId().toString();
     }
 
     @Override
     public JsEntity getVehicle() {
-        // TODO Auto-generated method stub
-        return null;
+        return new SpigotEntity(entity.getVehicle());
     }
 
     @Override
     public Number[] getVelocity() {
-        // TODO Auto-generated method stub
-        return null;
+        Number[] velocity = {
+            entity.getVelocity().getX(),
+            entity.getVelocity().getY(),
+            entity.getVelocity().getZ()
+        };
+
+        return velocity;
     }
 
     @Override
     public JsWorld getWorld() {
-        // TODO Auto-generated method stub
-        return null;
+        return new SpigotWorld(entity.getWorld());
     }
 
     @Override
     public boolean isCustomNameVisible() {
-        // TODO Auto-generated method stub
-        return false;
+        return entity.isCustomNameVisible();
     }
 
     @Override
     public boolean isDead() {
-        // TODO Auto-generated method stub
-        return false;
+        return entity.isDead();
     }
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        return false;
+        return entity.isEmpty();
     }
 
     @Override
     public boolean isInsideVehicle() {
-        // TODO Auto-generated method stub
-        return false;
+        return entity.isInsideVehicle();
     }
 
     @Override
     public boolean isOnGround() {
-        // TODO Auto-generated method stub
-        return false;
+        return entity.isOnGround();
     }
 
     @Override
     public boolean leaveVehicle() {
-        // TODO Auto-generated method stub
-        return false;
+        return entity.leaveVehicle();
     }
 
     @Override
     public void remove() {
-        // TODO Auto-generated method stub
-
+        entity.remove();
     }
 
     @Override
     public void setCustomName(String name) {
-        // TODO Auto-generated method stub
-
+        entity.setCustomName(name);
     }
 
     @Override
     public void setCustomNameVisible(Boolean flag) {
-        // TODO Auto-generated method stub
-
+        entity.setCustomNameVisible(flag);
     }
 
     @Override
     public void setFallDistance(Number distance) {
-        // TODO Auto-generated method stub
-
+        entity.setFallDistance(distance.floatValue());
     }
 
     @Override
     public void setFireTicks(Number fireTicks) {
-        // TODO Auto-generated method stub
-
+        entity.setFireTicks(fireTicks.intValue());
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public void setPassenger(JsEntity entity) {
-        // TODO Auto-generated method stub
-
+    public void setPassenger(JsEntity ent) {
+        entity.setPassenger(ent.java(Entity.class));
     }
 
     @Override
     public void setPassengers(JsEntity[] entities) {
-        // TODO Auto-generated method stub
-
+        entity.getPassengers().forEach(ent -> entity.removePassenger(ent));
+        for (JsEntity ent : entities) {
+            entity.addPassenger(ent.java(Entity.class));
+        }
     }
 
     @Override
     public void setTicksLived(Number ticks) {
-        // TODO Auto-generated method stub
-
+        entity.setTicksLived(ticks.intValue());
     }
 
     @Override
     public void setVelocity(Number[] velocity) {
-        // TODO Auto-generated method stub
-
+        entity.setVelocity(new Vector(velocity[0].doubleValue(), velocity[1].doubleValue(), velocity[2].doubleValue()));
     }
 
     @Override
     public void setVelocity(Number x, Number y, Number z) {
-        // TODO Auto-generated method stub
-
+        entity.setVelocity(new Vector(x.doubleValue(), y.doubleValue(), z.doubleValue()));
     }
 
     @Override
-    public boolean teleport(JsEntity entity) {
-        // TODO Auto-generated method stub
-        return false;
+    public boolean teleport(JsEntity ent) {
+        return entity.teleport(ent.java(Entity.class));
     }
 
     @Override
     public boolean teleport(JsLocation location) {
-        // TODO Auto-generated method stub
-        return false;
+        return entity.teleport(location.java(Location.class));
     }
 
 }

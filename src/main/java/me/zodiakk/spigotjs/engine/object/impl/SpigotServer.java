@@ -7,6 +7,7 @@ import java.util.UUID;
 import java.util.logging.Level;
 
 import org.bukkit.BanList;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -41,7 +42,7 @@ public class SpigotServer implements JsServer {
 
     @Override
     public int broadcastMessage(String message) {
-        return server.broadcastMessage(message);
+        return server.broadcastMessage(ChatColor.translateAlternateColorCodes('&', message));
     }
 
     @Override
@@ -56,8 +57,10 @@ public class SpigotServer implements JsServer {
 
     @Override
     public JsPlayer[] matchPlayer(String player) {
-        // TODO: SpigotPlayer implementation
-        return null;
+        Set<JsPlayer> players = new HashSet<JsPlayer>();
+
+        server.matchPlayer(player).forEach(pl -> players.add(new SpigotPlayer(pl)));
+        return players.toArray(new JsPlayer[0]);
     }
 
     @Override
@@ -178,55 +181,55 @@ public class SpigotServer implements JsServer {
 
     @Override
     public void log(String message) {
-        server.getLogger().info(message);
+        server.getLogger().info(ChatColor.translateAlternateColorCodes('&', message));
         // TODO: Js console
     }
 
     @Override
     public void info(String message) {
-        server.getLogger().info(message);
+        server.getLogger().info(ChatColor.translateAlternateColorCodes('&', message));
         // TODO: Js console
     }
 
     @Override
     public void warn(String message) {
-        server.getLogger().warning(message);
+        server.getLogger().warning(ChatColor.translateAlternateColorCodes('&', message));
         // TODO: Js console
     }
 
     @Override
     public void warning(String message) {
-        server.getLogger().warning(message);
+        server.getLogger().warning(ChatColor.translateAlternateColorCodes('&', message));
         // TODO: Js console
     }
 
     @Override
     public void error(String message) {
-        server.getLogger().severe(message);
+        server.getLogger().severe(ChatColor.translateAlternateColorCodes('&', message));
         // TODO: Js console
     }
 
     @Override
     public void severe(String message) {
-        server.getLogger().severe(message);
+        server.getLogger().severe(ChatColor.translateAlternateColorCodes('&', message));
         // TODO: Js console
     }
 
     @Override
     public void fine(String message) {
-        server.getLogger().fine(message);
+        server.getLogger().fine(ChatColor.translateAlternateColorCodes('&', message));
         // TODO: Js console
     }
 
     @Override
     public void finer(String message) {
-        server.getLogger().finer(message);
+        server.getLogger().finer(ChatColor.translateAlternateColorCodes('&', message));
         // TODO: Js console
     }
 
     @Override
     public void finest(String message) {
-        server.getLogger().finest(message);
+        server.getLogger().finest(ChatColor.translateAlternateColorCodes('&', message));
         // TODO: Js console
     }
 
@@ -238,12 +241,10 @@ public class SpigotServer implements JsServer {
 
     @Override
     public JsOfflinePlayer[] getBannedPlayers() {
-        // JsOfflinePlayer[] list = new JsOfflinePlayer[server.getBannedPlayers().size()];
-        // int i = 0;
+        Set<JsOfflinePlayer> players = new HashSet<JsOfflinePlayer>();
 
-        // server.getBannedPlayers().forEach(player -> list[i++] = new JsOfflinePlayer(player));
-        // TODO: SpigotOfflinePlayer implementation
-        return null;
+        server.getBannedPlayers().forEach(offlinePlayer -> players.add(new SpigotOfflinePlayer(offlinePlayer)));
+        return players.toArray(new JsOfflinePlayer[0]);
     }
 
     @Override
@@ -252,33 +253,37 @@ public class SpigotServer implements JsServer {
     }
 
     @Override
-    public JsOfflinePlayer getOfflinePlayer(String player) {
-        // TODO: SpigotOfflinePlayer implementation
-        return null;
+    public JsOfflinePlayer getOfflinePlayer(String uuid) {
+        return new SpigotOfflinePlayer(server.getOfflinePlayer(UUID.fromString(uuid)));
     }
 
     @Override
     public JsOfflinePlayer[] getOfflinePlayers() {
-        // TODO: SpigotOfflinePlayer implementation
-        return null;
+        Set<JsOfflinePlayer> players = new HashSet<JsOfflinePlayer>();
+
+        server.getWhitelistedPlayers().forEach(offlinePlayer -> players.add(new SpigotOfflinePlayer(offlinePlayer)));
+        return players.toArray(new JsOfflinePlayer[0]);
     }
 
     @Override
     public JsPlayer getPlayer(String player) {
-        // TODO: SpigotPlayer implementation
-        return null;
+        return new SpigotPlayer(server.getPlayer(player));
     }
 
     @Override
     public JsPlayer[] getPlayers() {
-        // TODO: SpigotPlayer implementation
-        return null;
+        Set<JsPlayer> players = new HashSet<JsPlayer>();
+
+        server.getOnlinePlayers().forEach(player -> players.add(new SpigotPlayer(player)));
+        return players.toArray(new JsPlayer[0]);
     }
 
     @Override
     public JsOfflinePlayer[] getWhitelistedPlayers() {
-        // TODO: SpigotOfflinePlayer implementation
-        return null;
+        Set<JsOfflinePlayer> players = new HashSet<JsOfflinePlayer>();
+
+        server.getWhitelistedPlayers().forEach(offlinePlayer -> players.add(new SpigotOfflinePlayer(offlinePlayer)));
+        return players.toArray(new JsOfflinePlayer[0]);
     }
 
     @Override

@@ -11,9 +11,9 @@ public class EventListenerFactory {
 
     public JsEventListener create(EventType type, Script script) {
         switch (type) {
-        case ENABLE: return new ScriptEventListener(EventType.ENABLE) {};
-        case DISABLE: return new ScriptEventListener(EventType.DISABLE) {};
-        case RELOAD: return new ScriptEventListener(EventType.RELOAD) {};
+        case ENABLE: return new ScriptEventListener(EventType.ENABLE, script) {};
+        case DISABLE: return new ScriptEventListener(EventType.DISABLE, script) {};
+        case RELOAD: return new ScriptEventListener(EventType.RELOAD, script) {};
         case BLOCK_BREAK: return new BlockBreak(script);
         case BLOCK_PLACE: return new BlockPlace(script);
         default: return null;

@@ -4,13 +4,17 @@ import org.graalvm.polyglot.Value;
 
 import me.zodiakk.spigotjs.engine.event.EventType;
 import me.zodiakk.spigotjs.engine.event.JsEventListener;
+import me.zodiakk.spigotjs.engine.script.Script;
+import me.zodiakk.spigotjs.engine.script.ScriptException;
 
 public abstract class ScriptEventListener implements JsEventListener {
     private Value callback;
     private EventType type;
+    private Script script;
 
-    protected ScriptEventListener(EventType type) {
+    protected ScriptEventListener(EventType type, Script script) {
         this.type = type;
+        this.script = script;
     }
 
     @Override
@@ -24,8 +28,12 @@ public abstract class ScriptEventListener implements JsEventListener {
     }
 
     @Override
-    public void onEvent(Object args) {
-        callback.executeVoid(args);
+    public void onEvent(Object arg) {
+        try {
+            callback.executeVoid(arg);
+        } catch (Throwable th) {
+            throw new ScriptException(script, th);
+        }
     }
 
     @Override
