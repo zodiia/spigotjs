@@ -1,21 +1,17 @@
-<br />
-<p align="center">
-  <h1 align="center">SpigotJS</h3>
-  <p align="center">
-    SpigotJS aims at providing a Javascript plugins platform for Spigot.
-    </br>
-    <a href="http://gitlab.com/mael.grivot/spigotjs/-/wikis/home"><strong>Read the full documentation here</strong></a>
-    </br>
-    </br>
-    <a href="https://www.spigotmc.org/resources/spigotjs/">Spigot page</a>
-    •
-    <a href="https://gitlab.com/mael.grivot/spigotjs/-/issues">Issues</a>
-    •
-    <a href="https://gitlab.com/mael.grivot/spigotjs/-/issues">Request a feature</a>
-  </p>
-</p>
 
-
+<div align="center" style="text-size: 24px;">
+  <h1>SpigotJS</h1>
+  SpigotJS aims at providing a Javascript plugins platform for Spigot.
+  <br />
+  <a href="http://gitlab.com/mael.grivot/spigotjs/-/wikis/home"><strong>Read the full documentation here ➜</strong></a>
+  <br />
+  <br />
+  <a href="https://www.spigotmc.org/resources/spigotjs/">Spigot page</a>
+  •
+  <a href="https://gitlab.com/mael.grivot/spigotjs/-/issues">Issues</a>
+  •
+  <a href="https://gitlab.com/mael.grivot/spigotjs/-/issues">Request a feature</a>
+</div>
 
 ## About the plugin
 

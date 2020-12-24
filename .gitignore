@@ -206,6 +206,6 @@ $RECYCLE.BIN/
 atlassian-ide-plugin.xml
 
 # Generated Documentation
-doc/
+/doc/
 .checkstyle
 src/main/js/docs

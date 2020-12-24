@@ -24,10 +24,12 @@ public class Script {
         linker = new ScriptLinker(this);
         description = new ScriptDescription(this);
         eventManager = new ScriptEventManager(this);
+        commandManager = new ScriptCommandManager(this);
+        schedulerManager = new ScriptSchedulerManager(this);
         context = null;
     }
 
-    protected JavascriptContext getContext() {
+    public JavascriptContext getContext() { // TODO: Set to protected
         return context;
     }
 
@@ -53,8 +55,7 @@ public class Script {
 
     public void importFromFile(File file) throws IOException {
         fileName = file.getName();
-        context = new JavascriptContext(file);
-        context.setScript(this);
+        context = new JavascriptContext(file, this);
         context.execute();
     }
 
@@ -74,8 +75,18 @@ public class Script {
         eventManager.onEvent(EventType.RELOAD, new SpigotServer(Bukkit.getServer()));
     }
 
+    public void unload() {
+        commandManager.unregisterAll();
+        eventManager.unregisterAll();
+        schedulerManager.unregisterAll();
+    }
+
     public String getFileName() {
         return fileName;
+    }
+
+    public File getFile() {
+        return context.getFile();
     }
 
     public boolean isPaused() {

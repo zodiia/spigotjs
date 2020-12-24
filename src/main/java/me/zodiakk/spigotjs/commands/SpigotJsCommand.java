@@ -5,6 +5,7 @@ import org.bukkit.command.CommandSender;
 
 import me.zodiakk.spigotjs.commands.spigotjs.PsCommand;
 import me.zodiakk.spigotjs.commands.spigotjs.RunCommand;
+import me.zodiakk.spigotjs.commands.spigotjs.TestCommand;
 
 public class SpigotJsCommand extends SubCommand {
     public SpigotJsCommand() {
@@ -12,6 +13,7 @@ public class SpigotJsCommand extends SubCommand {
 
         this.addSubCommand(new RunCommand(this));
         this.addSubCommand(new PsCommand(this));
+        this.addSubCommand(new TestCommand(this));
     }
 
     @Override

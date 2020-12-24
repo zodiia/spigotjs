@@ -33,6 +33,7 @@ public class JavascriptContext {
     private boolean currentClassLoaderIsThread = true;
     private Script script;
     private File file;
+    private boolean baseObjects = false;
 
     {
         if (i18n == null) {
@@ -40,24 +41,39 @@ public class JavascriptContext {
         }
     }
 
-    public JavascriptContext() throws IOException {
+    public JavascriptContext(Script script) throws IOException {
         threadClassLoader = Thread.currentThread().getContextClassLoader();
         graalClassLoader = getClass().getClassLoader();
         file = null;
+        this.script = script;
         switchClassLoader();
-        context = Context.newBuilder("js").allowAllAccess(true).engine(SpigotJsApi.getInstance().getPolyglotEngine()).build();
+        context = Context.newBuilder("js")
+                         .allowAllAccess(true)
+                         .allowExperimentalOptions(true)
+                         .option("js.commonjs-require", "true")
+                         .option("js.commonjs-require-cwd", new File(SpigotJs.getInstance().getDataFolder(), "scripts").getAbsolutePath())
+                         .option("js.commonjs-global-properties", "../node_modules/globals.js")
+                         .option("js.commonjs-core-modules-replacements",
+                                    "path:path-browserify," +
+                                    "http:superagent," +
+                                    "https:superagent," +
+                                    "fs:file-system," +
+                                    "zlib:zlib-browserify," +
+                                    "crypto:crypto-browserify," +
+                                    "tls:tls-browserify")
+                         .build();
         addBaseObjects();
         switchClassLoader();
     }
 
-    public JavascriptContext(File file) throws IOException {
-        this();
+    public JavascriptContext(File file, Script script) throws IOException {
+        this(script);
         loadFile(file);
         this.file = file;
     }
 
-    public JavascriptContext(URL url) throws IOException, URISyntaxException {
-        this();
+    public JavascriptContext(URL url, Script script) throws IOException, URISyntaxException {
+        this(script);
         loadFile(url);
         try {
             file = new File(url.toURI());
@@ -69,6 +85,7 @@ public class JavascriptContext {
     public void setScript(Script script) throws IOException {
         switchClassLoader();
         this.script = script;
+        addBaseObjects();
         switchClassLoader();
     }
 
@@ -144,6 +161,10 @@ public class JavascriptContext {
         switchClassLoader();
     }
 
+    public File getFile() {
+        return file;
+    }
+
     private void switchClassLoader() {
         if (currentClassLoaderIsThread) {
             Thread.currentThread().setContextClassLoader(graalClassLoader);
@@ -153,63 +174,79 @@ public class JavascriptContext {
     }
 
     private void addBaseObjects() throws IOException {
-        Function<String, Object> require = (id) -> {
-            if (script != null && id.equals("spigotjs")) {
-                return this.script.getLinker();
+        // Function<String, Object> require = (id) -> {
+        //     if (script != null && id.equals("spigotjs")) {
+        //         return this.script.getLinker();
+        //     }
+        //     if (REQUIRE_PATH.containsKey(id)) {
+        //         return context.eval(REQUIRE_PATH.get(id)).execute();
+        //     }
+        //     if (id.startsWith("./")) {
+        //         if (!SpigotJs.getInstance().getSpigotJsConfig().getEnableExperimentalFeatures()) {
+        //             Bukkit.getLogger().warning(i18n.get("script.error.experimentalFeature",
+        //                     script == null ? "(unknown)" : script.getDescription().toShortString(),
+        //                     "local file imports"));
+        //         }
+
+        //         File importedFile;
+
+        //         if (file == null || file.getParentFile() == null) {
+        //             importedFile = new File(SpigotJs.getInstance().getDataFolder(), id);
+        //         } else {
+        //             importedFile = new File(file.getParentFile(), id);
+        //         }
+
+        //         Bukkit.getLogger().info(importedFile.getAbsolutePath());
+        //         if (importedFile.exists()) {
+        //             try {
+        //                 StringBuilder code = new StringBuilder();
+        //                 Source source;
+
+        //                 code.append("(() => { const module = { exports: null };\n");
+        //                 code.append(readFile(importedFile));
+        //                 code.append("; return module.exports; });");
+        //                 source = Source.newBuilder("js", code.toString(), null).build();
+        //                 Bukkit.getLogger().info(source.getCharacters().toString());
+        //                 return context.eval(source).execute();
+        //             } catch (IOException e) {
+        //                 e.printStackTrace();
+        //                 return context.eval("js", "{}");
+        //             }
+        //         }
+        //     }
+        //     return null;
+        // };
+        // context.getBindings("js").putMember("require", require);
+        if (script != null) {
+            if (baseObjects) {
+                context.getBindings("js").removeMember("___spigotjs");
+                context.getBindings("js").putMember("___spigotjs", script.getLinker());
+            } else {
+                context.getBindings("js").putMember("___spigotjs", script.getLinker());
+                execute("const ___require = require;"
+                    + "require = function(path) {"
+                    + "    if (path == 'spigotjs') {"
+                    + "        return ___spigotjs;"
+                    + "    }"
+                    + "    return ___require(path);"
+                    + "}");
             }
-            if (REQUIRE_PATH.containsKey(id)) {
-                return context.eval(REQUIRE_PATH.get(id)).execute();
-            }
-            if (id.startsWith("./")) {
-                if (!SpigotJs.getInstance().getSpigotJsConfig().getEnableExperimentalFeatures()) {
-                    Bukkit.getLogger().warning(i18n.get("script.error.experimentalFeature",
-                            script == null ? "(unknown)" : script.getDescription().toShortString(),
-                            "local file imports"));
-                }
-
-                File importedFile;
-
-                if (file == null || file.getParentFile() == null) {
-                    importedFile = new File(SpigotJs.getInstance().getDataFolder(), id);
-                } else {
-                    importedFile = new File(file.getParentFile(), id);
-                }
-
-                Bukkit.getLogger().info(importedFile.getAbsolutePath());
-                if (importedFile.exists()) {
-                    try {
-                        StringBuilder code = new StringBuilder();
-                        Source source;
-
-                        code.append("(() => { const module = { exports: null };\n");
-                        code.append(readFile(importedFile));
-                        code.append("; return module.exports; });");
-                        source = Source.newBuilder("js", code.toString(), null).build();
-                        Bukkit.getLogger().info(source.getCharacters().toString());
-                        return context.eval(source).execute();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        return context.eval("js", "{}");
-                    }
-                }
-            }
-            return null;
-        };
-        context.getBindings("js").putMember("require", require);
-    }
-
-    private String readFile(File file) throws IOException {
-        FileReader fileReader = new FileReader(file);
-        BufferedReader reader = new BufferedReader(fileReader);
-        StringBuilder contents = new StringBuilder();
-
-        for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-            contents.append(line);
         }
-        reader.close();
-        fileReader.close();
-        return contents.toString();
+        execute("const process = require('process')");
     }
+
+    // private String readFile(File file) throws IOException {
+    //     FileReader fileReader = new FileReader(file);
+    //     BufferedReader reader = new BufferedReader(fileReader);
+    //     StringBuilder contents = new StringBuilder();
+
+    //     for (String line = reader.readLine(); line != null; line = reader.readLine()) {
+    //         contents.append(line);
+    //     }
+    //     reader.close();
+    //     fileReader.close();
+    //     return contents.toString();
+    // }
 
     public static void loadLibs(Plugin plugin) {
         // Load libraries

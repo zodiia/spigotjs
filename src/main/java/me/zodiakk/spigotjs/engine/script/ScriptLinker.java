@@ -1,5 +1,7 @@
 package me.zodiakk.spigotjs.engine.script;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.bukkit.Bukkit;
 import org.graalvm.polyglot.Value;
 
@@ -52,7 +54,23 @@ public class ScriptLinker {
         script.getDescription().fromValue(description);
     }
 
-    public void command(String command, Value callback) {
-        Bukkit.getLogger().info("command");
+    public void command(Value command, Value callback)
+            throws NoSuchFieldException, SecurityException, NoSuchMethodException, IllegalArgumentException,
+            IllegalAccessException, InstantiationException, InvocationTargetException {
+        if (command == null || command.isNull() || callback == null || !callback.canExecute()) {
+            throw new IllegalArgumentException();
+        }
+        if (command.isString()) {
+            if (!script.getCommandManager().registerCommand(command.asString(), callback)) {
+                throw new IllegalStateException();
+            }
+        } else if (command.hasMembers()) {
+            if (!script.getCommandManager().registerCommand(command, callback)) {
+                throw new IllegalStateException();
+            }
+        } else {
+            throw new IllegalArgumentException();
+        }
+
     }
 }

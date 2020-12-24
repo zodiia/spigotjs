@@ -20,7 +20,9 @@ public class RunCommand extends SubCommand {
 
     @Override
     public void onSubCommand(CommandSender sender, Command command, String label, String[] args) {
-        CommandOptions opts = new CommandOptions(args, "ae:i:o:");
+        CommandOptions opts = new CommandOptions(args, "ae:i:o:r");
+
+        boolean forceReload = false;
 
         if (opts.argumentCount() < 1) {
             displayHelp(sender, label);
@@ -38,10 +40,23 @@ public class RunCommand extends SubCommand {
         if (opts.hasOption("o")) {
             sender.sendMessage(i18n.get("error.notYetImplemented"));
         }
+        if (opts.hasOption("r")) {
+            forceReload = true;
+        }
 
-        File scriptFile = new File(SpigotJs.getInstance().getSpigotJsConfig().getScriptsDirectory(), args[0]);
+        File scriptFile = new File(SpigotJs.getInstance().getSpigotJsConfig().getScriptsDirectory(), opts.getArgument(0));
 
         try {
+            Script oldScript = SpigotJsApi.getInstance().getScriptManager().getScript(scriptFile);
+            if (oldScript != null) {
+                if (!forceReload) {
+                    sender.sendMessage(i18n.get("error.scriptAlreadyRunning"));
+                    return;
+                } else {
+                    SpigotJsApi.getInstance().getScriptManager().unregisterScript(oldScript);
+                }
+            }
+
             Script script = SpigotJsApi.getInstance().getScriptManager().createScript(scriptFile);
 
             sender.sendMessage(i18n.get("command.sjs.run.runningScript", script.getDescription().toShortString()));

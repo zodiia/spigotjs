@@ -6,7 +6,8 @@
     "entitySender": "&cError: &7Non-player entities are not allowed to send commands.",
     "noPermission": "&cError: &7You don't have permission to use this command.",
     "notYetImplemented": "&cError: &7This feature has not yet been implemented.",
-    "fileDoesntExist": "&cError: &7The file ({{0}} does not exist."
+    "fileDoesntExist": "&cError: &7The file {{0}} does not exist.",
+    "scriptAlreadyRunning": "&cError: &7This script is already running."
   },
   "script": {
     "error": {
@@ -44,7 +45,7 @@
           "  &3script&7: Name of the script to cancel",
           "",
           "&7Options:",
-          "  &3-f   &7Force the cancellation"
+          "  &3-f  &7Force the cancellation"
         ]
       },
       "get": {
@@ -56,8 +57,8 @@
           "  &3name&7: Name of the script",
           "",
           "&7Options:",
-          "  &3-l   &7Do not download and instead list scripts matching the name",
-          "  &3-r   &7Remove the script, if installed"
+          "  &3-l  &7Do not download and instead list scripts matching the name",
+          "  &3-r  &7Remove the script, if installed"
         ]
       },
       "help": {
@@ -75,8 +76,8 @@
           "&7Usage: &3/{{1}} [-f] [-s <code ...>]",
           "",
           "&7Options:",
-          "  &3-f   &7Full-integration mode with any other chat message disabled",
-          "  &3-s   &7Run a single line of code and do not enable interactive mode"
+          "  &3-f  &7Full-integration mode with any other chat message disabled",
+          "  &3-s  &7Run a single line of code and do not enable interactive mode"
         ]
       },
       "pause": {
@@ -94,13 +95,15 @@
           "&7Usage: &3/{{1}} [-a] [-p] [-u]",
           "",
           "&7Options:",
-          "  &3-a   &7List all scripts (including non-running ones)",
-          "  &3-p   &7Only list paused scripts",
-          "  &3-u   &7Only list running and unpaused scripts"
+          "  &3-a  &7List all scripts (including non-running ones)",
+          "  &3-p  &7Only list paused scripts",
+          "  &3-u  &7Only list running and unpaused scripts"
         ],
         "enabledScript": "&8[&2&lE&8] &7{{0}}",
         "pausedScript": "&8[&e&lP&8] &7{{0}}",
-        "disabledScript": "&8[&c&lD&8] &7{{0}}"
+        "disabledScript": "&8[&c&lD&8] &7{{0}}",
+        "header": "&7List of running scripts:",
+        "footer": "&c&lD&7: Disabled &8- &e&lP&7: Paused &8- &2&lE&7: Enabled"
       },
       "run": {
         "?": [
@@ -111,10 +114,11 @@
           "  &3script file&7: Script file to run",
           "",
           "&7Options:",
-          "  &3-a   &7Print all script outputs into the chat",
-          "  &3-e   &7Set this file as stderr",
-          "  &3-i   &7Set this file as stdin",
-          "  &3-o   &7Set this file as stdout"
+          "  &3-a  &7Print all script outputs into the chat",
+          "  &3-e  &7Set this file as stderr",
+          "  &3-i  &7Set this file as stdin",
+          "  &3-o  &7Set this file as stdout",
+          "  &3-r  &7Force the script to reload if it is running"
         ],
         "runningScript": "&7Running script {{0}}...",
         "cannotLoad": "&cError: &7Script could not be loaded."
@@ -155,7 +159,7 @@
           "  &3script&7: Name of the script to stop",
           "",
           "&7Options:",
-          "  &3-f   &7Force the script to stop"
+          "  &3-f  &7Force the script to stop"
         ]
       },
       "unpause": {
@@ -175,5 +179,5 @@
       }
     }
   },
-  "_version": 1
+  "_version": 2
 }

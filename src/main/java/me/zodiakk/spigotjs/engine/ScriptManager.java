@@ -31,6 +31,11 @@ public class ScriptManager {
         registeredScripts.add(script);
     }
 
+    public void unregisterScript(Script script) {
+        script.disable();
+        registeredScripts.remove(script);
+    }
+
     public void enable() {
         for (Script script : registeredScripts) {
             script.enable();
@@ -45,5 +50,14 @@ public class ScriptManager {
 
     public Set<Script> getScripts() {
         return new HashSet<Script>(registeredScripts);
+    }
+
+    public Script getScript(File file) {
+        for (Script script : registeredScripts) {
+            if (script.getFile().equals(file)) {
+                return script;
+            }
+        }
+        return null;
     }
 }

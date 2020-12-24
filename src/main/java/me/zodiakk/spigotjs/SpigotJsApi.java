@@ -41,11 +41,11 @@ public class SpigotJsApi {
     }
 
     public JavascriptContext createJavascriptContext() throws IOException {
-        return new JavascriptContext();
+        return new JavascriptContext(null);
     }
 
     public JavascriptContext createJavascriptContext(File file) throws IOException {
-        return new JavascriptContext(file);
+        return new JavascriptContext(file, null);
     }
 
     public I18n getI18n() {

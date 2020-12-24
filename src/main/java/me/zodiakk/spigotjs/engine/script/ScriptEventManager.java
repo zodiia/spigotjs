@@ -38,6 +38,13 @@ public class ScriptEventManager {
         }
     }
 
+    public void unregisterAll() {
+        for (JsEventListener listener : registeredListeners) {
+            listener.unregister();
+            registeredListeners.remove(listener);
+        }
+    }
+
     public void onEvent(EventType type, Object argument) {
         if (script.isPaused()) {
             return;

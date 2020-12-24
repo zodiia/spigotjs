@@ -30,6 +30,7 @@ public class PsCommand extends SubCommand {
 
         Set<Script> scripts = SpigotJsApi.getInstance().getScriptManager().getScripts();
 
+        sender.sendMessage(i18n.get("command.sjs.ps.header"));
         for (Script script : scripts) {
             String name = script.getDescription().toShortString();
 
@@ -43,6 +44,7 @@ public class PsCommand extends SubCommand {
                 sender.sendMessage(i18n.get("command.sjs.ps.disabledScript", name));
             }
         }
+        sender.sendMessage(i18n.get("command.sjs.ps.footer"));
     }
 
     public void displayHelp(CommandSender sender, String label) {
