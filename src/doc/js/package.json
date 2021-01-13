@@ -1,0 +1,23 @@
+{
+  "name": "spigotjs-doc",
+  "version": "0.0.1",
+  "description": "SpigotJS Documentation",
+  "main": "index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=15"
+  },
+  "scripts": {
+    "doc": "typedoc --out ../../../target/site/jsdocs --theme minimal --includes ./md types.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/mael.grivot/spigotjs.git"
+  },
+  "author": "Zodiak",
+  "license": "ISC",
+  "dependencies": {
+    "typedoc": "^0.20.13",
+    "typescript": "^4.1.3"
+  }
+}
