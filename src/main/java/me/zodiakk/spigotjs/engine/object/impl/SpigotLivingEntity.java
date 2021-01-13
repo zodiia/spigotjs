@@ -209,9 +209,10 @@ public class SpigotLivingEntity extends SpigotEntity implements JsLivingEntity {
         return entity.getHealth();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public Number getMaxHealth() {
-        return entity.getMaxHealth();
+        return entity.getMaxHealth(); // TODO: Find a better solution
     }
 
     @Override
@@ -224,8 +225,9 @@ public class SpigotLivingEntity extends SpigotEntity implements JsLivingEntity {
         entity.setHealth(amount.doubleValue());
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void setMaxHealth(Number amount) {
-        entity.setMaxHealth(amount.doubleValue());
+        entity.setMaxHealth(amount.doubleValue()); // TODO: Find a better solution
     }
 }

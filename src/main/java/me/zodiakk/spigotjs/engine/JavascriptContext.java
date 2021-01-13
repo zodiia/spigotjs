@@ -1,17 +1,13 @@
 package me.zodiakk.spigotjs.engine;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Function;
 
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Source;
@@ -54,13 +50,13 @@ public class JavascriptContext {
                          .option("js.commonjs-require-cwd", new File(SpigotJs.getInstance().getDataFolder(), "scripts").getAbsolutePath())
                          .option("js.commonjs-global-properties", "../node_modules/globals.js")
                          .option("js.commonjs-core-modules-replacements",
-                                    "path:path-browserify," +
-                                    "http:superagent," +
-                                    "https:superagent," +
-                                    "fs:file-system," +
-                                    "zlib:zlib-browserify," +
-                                    "crypto:crypto-browserify," +
-                                    "tls:tls-browserify")
+                                      "path:path-browserify,"
+                                    + "http:superagent,"
+                                    + "https:superagent,"
+                                    + "fs:file-system,"
+                                    + "zlib:zlib-browserify,"
+                                    + "crypto:crypto-browserify,"
+                                    + "tls:tls-browserify")
                          .build();
         addBaseObjects();
         switchClassLoader();
