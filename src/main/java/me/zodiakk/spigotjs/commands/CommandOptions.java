@@ -9,6 +9,10 @@ public final class CommandOptions {
     private Map<String, String> options = new HashMap<String, String>();
     private List<String> arguments = new ArrayList<String>();
 
+    public CommandOptions(String[] args) {
+        this(args, "");
+    }
+
     public CommandOptions(String[] args, String optstring) {
         parseArguments(args, optstring);
     }

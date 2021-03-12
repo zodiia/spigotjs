@@ -1,5 +1,10 @@
 package me.zodiakk.spigotjs.engine.object.impl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
 import org.bukkit.Difficulty;
 import org.bukkit.GameRule;
 import org.bukkit.Location;
@@ -10,6 +15,8 @@ import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
@@ -143,20 +150,38 @@ public class SpigotWorld implements JsWorld {
 
     @Override
     public JsEntity[] getEntities() {
-        // TODO: SpigotEntity implementation
-        return null;
+        JsEntity[] entities = new JsEntity[world.getEntities().size()];
+        int i = 0;
+
+        for (Entity entity : world.getEntities()) {
+            entities[i++] = new SpigotEntity(entity);
+        }
+        return entities;
     }
 
     @Override
     public JsEntity[] getEntities(String type) {
-        // TODO: SpigotEntity implementation
-        return null;
+        List<JsEntity> entities = new ArrayList<JsEntity>();
+
+        for (Entity entity : world.getEntities()) {
+            if (entity.getType().toString().toLowerCase().equals(type)) {
+                entities.add(new SpigotEntity(entity));
+            }
+        }
+        return entities.toArray(new JsEntity[0]);
     }
 
     @Override
     public JsEntity[] getEntities(String[] types) {
-        // TODO: SpigotEntity implementation
-        return null;
+        List<JsEntity> entities = new ArrayList<JsEntity>();
+        List<String> typeList = Arrays.asList(types);
+
+        for (Entity entity : world.getEntities()) {
+            if (typeList.contains(entity.getType().toString().toLowerCase())) {
+                entities.add(new SpigotEntity(entity));
+            }
+        }
+        return entities.toArray(new JsEntity[0]);
     }
 
     @Override
@@ -216,8 +241,13 @@ public class SpigotWorld implements JsWorld {
 
     @Override
     public JsLivingEntity[] getLivingEntities() {
-        // TODO: SpigotLivingEntity
-        return null;
+        JsLivingEntity[] entities = new JsLivingEntity[world.getLivingEntities().size()];
+        int i = 0;
+
+        for (LivingEntity entity : world.getLivingEntities()) {
+            entities[i++] = new SpigotLivingEntity(entity);
+        }
+        return entities;
     }
 
     @Override
@@ -237,20 +267,37 @@ public class SpigotWorld implements JsWorld {
 
     @Override
     public JsEntity[] getNearbyEntities(JsLocation location, Number x, Number y, Number z) {
-        // TODO: SpigotEntity
-        return null;
+        Collection<Entity> nearby = world.getNearbyEntities(location.java(Location.class), x.doubleValue(), y.doubleValue(), z.doubleValue());
+        JsEntity[] entities = new JsEntity[nearby.size()];
+        int i = 0;
+
+        for (Entity entity : nearby) {
+            entities[i++] = new SpigotEntity(entity);
+        }
+        return entities;
     }
 
     @Override
     public JsEntity[] getNearbyEntities(JsLocation location, Number distance) {
-        // TODO: SpigotEntity
-        return null;
+        Collection<Entity> nearby = world.getNearbyEntities(location.java(Location.class), distance.doubleValue(), distance.doubleValue(), distance.doubleValue());
+        JsEntity[] entities = new JsEntity[nearby.size()];
+        int i = 0;
+
+        for (Entity entity : nearby) {
+            entities[i++] = new SpigotEntity(entity);
+        }
+        return entities;
     }
 
     @Override
     public JsPlayer[] getPlayers() {
-        // TODO: SpigotPlayer
-        return null;
+        JsPlayer[] players = new JsPlayer[world.getPlayers().size()];
+        int i = 0;
+
+        for (Player player : world.getPlayers()) {
+            players[i++] = new SpigotPlayer(player);
+        }
+        return players;
     }
 
     @Override

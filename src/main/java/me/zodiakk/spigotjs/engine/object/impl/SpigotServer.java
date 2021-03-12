@@ -7,6 +7,7 @@ import java.util.UUID;
 import java.util.logging.Level;
 
 import org.bukkit.BanList;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.World;
@@ -304,6 +305,7 @@ public class SpigotServer implements JsServer {
         for (World world : server.getWorlds()) {
             worlds[i++] = new SpigotWorld(world);
         }
+        Bukkit.getLogger().info("" + worlds.length);
         return worlds;
     }
 

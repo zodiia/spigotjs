@@ -51,12 +51,14 @@ public class JavascriptContext {
                          .option("js.commonjs-global-properties", "../node_modules/globals.js")
                          .option("js.commonjs-core-modules-replacements",
                                       "path:path-browserify,"
-                                    + "http:superagent,"
-                                    + "https:superagent,"
-                                    + "fs:file-system,"
-                                    + "zlib:zlib-browserify,"
-                                    + "crypto:crypto-browserify,"
-                                    + "tls:tls-browserify")
+                                    + "fs:file-system")
+                                    //   "path:path-browserify,"
+                                    // + "http:superagent,"
+                                    // + "https:superagent,"
+                                    // + "fs:file-system,"
+                                    // + "zlib:zlib-browserify,"
+                                    // + "crypto:crypto-browserify,"
+                                    // + "tls:tls-browserify")
                          .build();
         addBaseObjects();
         switchClassLoader();
@@ -228,7 +230,7 @@ public class JavascriptContext {
                     + "}");
             }
         }
-        execute("const process = require('process')");
+        // execute("const process = require('process')");
     }
 
     // private String readFile(File file) throws IOException {

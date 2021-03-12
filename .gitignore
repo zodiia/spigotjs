@@ -209,3 +209,6 @@ atlassian-ide-plugin.xml
 /doc/
 .checkstyle
 src/main/js/docs
+
+# Backup files
+*.bak.*

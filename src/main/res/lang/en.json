@@ -7,6 +7,7 @@
     "noPermission": "&cError: &7You don't have permission to use this command.",
     "notYetImplemented": "&cError: &7This feature has not yet been implemented.",
     "fileDoesntExist": "&cError: &7The file {{0}} does not exist.",
+    "scriptNotFound": "&cError: &7Could not find the script {{0}}.",
     "scriptAlreadyRunning": "&cError: &7This script is already running."
   },
   "script": {
@@ -22,16 +23,16 @@
         "{{0}} &7- Help",
         "&7Usage: &3/{{1}} <sub-command> [arguments ...]",
         "&7List of available sub-commands:",
-        "  &3cancel &7- Cancel a scheduled script",
+        "  &8cancel &8- Cancel a scheduled script",
         "  &3get &7- Download a script from the internet",
         "  &3help &7- Display help about a sub-command",
-        "  &3interactive &7- Interactive JS console within the chat",
+        "  &8interactive &8- Interactive JS console within the chat",
         "  &3pause &7- Pause a running script",
         "  &3ps &7- List running scripts",
         "  &3run &7- Run a script",
-        "  &3schedule &7- Schedule a script to run later",
+        "  &8schedule &8- Schedule a script to run later",
         "  &3scripts &7- List all available scripts",
-        "  &3status &7- Display the current state of SpigotJS or a running script",
+        "  &3search &7- Search for a script to download",
         "  &3stop &7- Stop a script",
         "  &3unpause &7- Unpause a paused script",
         "  &3version &7- Get version informations"
@@ -59,7 +60,10 @@
           "&7Options:",
           "  &3-l  &7Do not download and instead list scripts matching the name",
           "  &3-r  &7Remove the script, if installed"
-        ]
+        ],
+        "noScriptFound": "&7Could not find a script with this name.",
+        "multipleScriptsFound": "&7Found multiple scripts with this name. Try downloading it using the form 'author/name'.",
+        "scriptDownloaded": "&7Script downloaded. Run it using &e/{{0}} run {{1}}&7."
       },
       "help": {
         "?": [
@@ -87,7 +91,9 @@
           "",
           "&7Arguments:",
           "  &3script&7: Name of the script to pause"
-        ]
+        ],
+        "alreadyPaused": "&cError: &7Script is already paused.",
+        "scriptPaused": "&7Script {{0}} is now paused."
       },
       "ps": {
         "?": [
@@ -141,14 +147,17 @@
           "&7Usage: &3/{{1}}"
         ]
       },
-      "status": {
+      "search": {
         "?": [
           "{{0}} &7- Help",
-          "&7Usage: &3/{{1}} [script]",
+          "&7Usage: &3/{{1}} <keyword>",
           "",
           "&7Arguments:",
-          "  &3script&7 (optional): Script to get status of"
-        ]
+          "  &3keyword&7: Search keyword (name or author)"
+        ],
+        "results": "&7Results for &c{{0}}&7:",
+        "resultLine": "&8- &c{{0}} &7by {{1}}",
+        "noResults": "&7No results."
       },
       "stop": {
         "?": [
@@ -160,7 +169,8 @@
           "",
           "&7Options:",
           "  &3-f  &7Force the script to stop"
-        ]
+        ],
+        "scriptStopped": "&7Script {{0}} is now stopped."
       },
       "unpause": {
         "?": [
@@ -169,7 +179,9 @@
           "",
           "&7Arguments:",
           "  &3script&7: Name of the script to unpause"
-        ]
+        ],
+        "notPaused": "&cError: &7Script is not paused.",
+        "scriptUnpaused": "&7Script {{0}} is now unpaused."
       },
       "version": {
         "?": [

@@ -22,6 +22,7 @@ public class PsCommand extends SubCommand {
 
         if (opts.argumentCount() != 0) {
             displayHelp(sender, label);
+            return;
         }
 
         boolean displayDisabled = opts.hasOption("a");
@@ -43,6 +44,7 @@ public class PsCommand extends SubCommand {
             } else if (!script.isEnabled() && displayDisabled) {
                 sender.sendMessage(i18n.get("command.sjs.ps.disabledScript", name));
             }
+            sender.sendMessage("> §7" + script.getDescription().getDescription());
         }
         sender.sendMessage(i18n.get("command.sjs.ps.footer"));
     }

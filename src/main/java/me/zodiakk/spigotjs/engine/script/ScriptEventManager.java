@@ -22,7 +22,6 @@ public class ScriptEventManager {
         if (listener == null) {
             return false;
         }
-        unregister(type);
         listener.register(callback);
         registeredListeners.add(listener);
         return true;
@@ -41,8 +40,8 @@ public class ScriptEventManager {
     public void unregisterAll() {
         for (JsEventListener listener : registeredListeners) {
             listener.unregister();
-            registeredListeners.remove(listener);
         }
+        registeredListeners.clear();
     }
 
     public void onEvent(EventType type, Object argument) {

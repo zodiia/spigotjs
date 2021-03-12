@@ -67,5 +67,4 @@ public class SpigotEntityDamageEvent extends SpigotEntityEvent implements JsEnti
         }
         return null;
     }
-
 }

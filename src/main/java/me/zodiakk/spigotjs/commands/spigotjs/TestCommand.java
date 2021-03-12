@@ -66,7 +66,7 @@ public class TestCommand extends SubCommand {
         };
 
         Bukkit.getServer().getPluginManager().registerEvents(javaListener, SpigotJs.getInstance());
-        script.getContext().getBindings().putMember("countdown", latchJs);
+        script.getMainContext().getBindings().putMember("countdown", latchJs);
 
         for (int i = 0; i < 1001; i++) {
             Bukkit.getServer().getPluginManager().callEvent(event);

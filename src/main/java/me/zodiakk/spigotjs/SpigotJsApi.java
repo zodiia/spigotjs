@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.graalvm.polyglot.Engine;
 
+import me.zodiakk.spigotjs.downloader.ScriptDownloader;
 import me.zodiakk.spigotjs.engine.JavascriptContext;
 import me.zodiakk.spigotjs.engine.ScriptManager;
 import me.zodiakk.spigotjs.i18n.I18n;
@@ -13,10 +14,11 @@ import me.zodiakk.spigotjs.i18n.I18n;
  * General SpigotJS API.
  */
 public class SpigotJsApi {
-    private static final SpigotJsApi INSTANCE = new SpigotJsApi();
+    private static SpigotJsApi INSTANCE;
     private final Engine engine;
     private final I18n i18n;
     private final ScriptManager scriptManager;
+    private final ScriptDownloader scriptDownloader;
 
     private SpigotJsApi() {
         try {
@@ -25,6 +27,7 @@ public class SpigotJsApi {
             throw new IllegalStateException(ex);
         }
         scriptManager = new ScriptManager();
+        scriptDownloader = new ScriptDownloader();
 
         ClassLoader threadClassLoader = Thread.currentThread().getContextClassLoader();
         Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
@@ -37,6 +40,9 @@ public class SpigotJsApi {
      * @return The API instance
      */
     public static final SpigotJsApi getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new SpigotJsApi();
+        }
         return INSTANCE;
     }
 
@@ -54,6 +60,10 @@ public class SpigotJsApi {
 
     public ScriptManager getScriptManager() {
         return scriptManager;
+    }
+
+    public ScriptDownloader getScriptDownloader() {
+        return scriptDownloader;
     }
 
     public Engine getPolyglotEngine() {

@@ -2,6 +2,8 @@ package me.zodiakk.spigotjs.engine.script;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.bukkit.Bukkit;
 
@@ -15,7 +17,8 @@ public class Script {
     private ScriptEventManager eventManager;
     private ScriptSchedulerManager schedulerManager;
     private ScriptCommandManager commandManager;
-    private JavascriptContext context;
+    private JavascriptContext mainContext;
+    private Set<JavascriptContext> subContexts;
     private String fileName = "";
     private boolean isPaused = true;
     private boolean isEnabled = false;
@@ -26,11 +29,12 @@ public class Script {
         eventManager = new ScriptEventManager(this);
         commandManager = new ScriptCommandManager(this);
         schedulerManager = new ScriptSchedulerManager(this);
-        context = null;
+        mainContext = null;
+        subContexts = new HashSet<JavascriptContext>();
     }
 
-    public JavascriptContext getContext() { // TODO: Set to protected
-        return context;
+    public JavascriptContext getMainContext() { // TODO: Set to protected
+        return mainContext;
     }
 
     public ScriptLinker getLinker() {
@@ -55,8 +59,16 @@ public class Script {
 
     public void importFromFile(File file) throws IOException {
         fileName = file.getName();
-        context = new JavascriptContext(file, this);
-        context.execute();
+        Bukkit.getLogger().info(fileName);
+        mainContext = new JavascriptContext(file, this);
+        mainContext.execute();
+    }
+
+    public void addSubContext(File file) throws IOException {
+        JavascriptContext subContext = new JavascriptContext(file, this);
+
+        subContexts.add(subContext);
+        subContext.execute();
     }
 
     public void enable() {
@@ -86,7 +98,7 @@ public class Script {
     }
 
     public File getFile() {
-        return context.getFile();
+        return mainContext.getFile();
     }
 
     public boolean isPaused() {
