@@ -8,6 +8,11 @@ public enum EventType {
 
     // Blocks
     BLOCK_BREAK("blockBreak"),
+    BLOCK_BURN("blockBurn"),
+    BLOCK_DAMAGE("blockDamage"),
+    BLOCK_DISPENSE("blockDispense"),
+    BLOCK_EXPLODE("blockExplode"),
+    BLOCK_PISTON("blockPiston"),
     BLOCK_PLACE("blockPlace"),
 
     // Players
@@ -40,6 +45,16 @@ public enum EventType {
     ENTITY_STATUS("entityStatus"),
     ENTITY_TELEPORT("entityTeleport"),
     ENTITY_TRANSFORM("entityTransform"),
+
+    // World
+    LIGHTNING_STRIKE("lightningStrike"),
+    PORTAL_CREATE("portalCreate"),
+    WEATHER_CHANGE("weatherChange"),
+    WORLD_LOAD("worldLoad"),
+    WORLD_UNLOAD("worldUnload"),
+
+    // Server
+    SERVER_PING("serverPing"),
     ;
 
     private String name;

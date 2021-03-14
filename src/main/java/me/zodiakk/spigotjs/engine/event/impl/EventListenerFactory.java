@@ -3,6 +3,11 @@ package me.zodiakk.spigotjs.engine.event.impl;
 import me.zodiakk.spigotjs.engine.event.EventType;
 import me.zodiakk.spigotjs.engine.event.JsEventListener;
 import me.zodiakk.spigotjs.engine.event.impl.type.BlockBreak;
+import me.zodiakk.spigotjs.engine.event.impl.type.BlockBurn;
+import me.zodiakk.spigotjs.engine.event.impl.type.BlockDamage;
+import me.zodiakk.spigotjs.engine.event.impl.type.BlockDispense;
+import me.zodiakk.spigotjs.engine.event.impl.type.BlockExplode;
+import me.zodiakk.spigotjs.engine.event.impl.type.BlockPiston;
 import me.zodiakk.spigotjs.engine.event.impl.type.BlockPlace;
 import me.zodiakk.spigotjs.engine.event.impl.type.EntityChangeBlock;
 import me.zodiakk.spigotjs.engine.event.impl.type.EntityCombust;
@@ -17,6 +22,7 @@ import me.zodiakk.spigotjs.engine.event.impl.type.EntityResurrect;
 import me.zodiakk.spigotjs.engine.event.impl.type.EntitySpawn;
 import me.zodiakk.spigotjs.engine.event.impl.type.EntityTeleport;
 import me.zodiakk.spigotjs.engine.event.impl.type.EntityTransform;
+import me.zodiakk.spigotjs.engine.event.impl.type.LightningStrike;
 import me.zodiakk.spigotjs.engine.event.impl.type.PlayerChat;
 import me.zodiakk.spigotjs.engine.event.impl.type.PlayerConnect;
 import me.zodiakk.spigotjs.engine.event.impl.type.PlayerDeath;
@@ -30,6 +36,11 @@ import me.zodiakk.spigotjs.engine.event.impl.type.PlayerMove;
 import me.zodiakk.spigotjs.engine.event.impl.type.PlayerPortal;
 import me.zodiakk.spigotjs.engine.event.impl.type.PlayerRespawn;
 import me.zodiakk.spigotjs.engine.event.impl.type.PlayerTeleport;
+import me.zodiakk.spigotjs.engine.event.impl.type.PortalCreate;
+import me.zodiakk.spigotjs.engine.event.impl.type.ServerPing;
+import me.zodiakk.spigotjs.engine.event.impl.type.WeatherChange;
+import me.zodiakk.spigotjs.engine.event.impl.type.WorldLoad;
+import me.zodiakk.spigotjs.engine.event.impl.type.WorldUnload;
 import me.zodiakk.spigotjs.engine.script.Script;
 
 public class EventListenerFactory {
@@ -45,6 +56,11 @@ public class EventListenerFactory {
 
         // Blocks
         case BLOCK_BREAK: return new BlockBreak(script);
+        case BLOCK_BURN: return new BlockBurn(script);
+        case BLOCK_DAMAGE: return new BlockDamage(script);
+        case BLOCK_DISPENSE: return new BlockDispense(script);
+        case BLOCK_EXPLODE: return new BlockExplode(script);
+        case BLOCK_PISTON: return new BlockPiston(script);
         case BLOCK_PLACE: return new BlockPlace(script);
 
         // Players
@@ -76,6 +92,16 @@ public class EventListenerFactory {
         case ENTITY_SPAWN: return new EntitySpawn(script);
         case ENTITY_TELEPORT: return new EntityTeleport(script);
         case ENTITY_TRANSFORM: return new EntityTransform(script);
+
+        // World
+        case LIGHTNING_STRIKE: return new LightningStrike(script);
+        case PORTAL_CREATE: return new PortalCreate(script);
+        case WEATHER_CHANGE: return new WeatherChange(script);
+        case WORLD_LOAD: return new WorldLoad(script);
+        case WORLD_UNLOAD: return new WorldUnload(script);
+
+        // Server
+        case SERVER_PING: return new ServerPing(script);
 
         default: return null;
         }
