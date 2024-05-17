@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/mael.grivot/spigotjs.git"
+    "url": "git+ssh://git@gitlab.com/manon.grivot/spigotjs.git"
   },
   "author": "Zodiak",
   "license": "ISC",

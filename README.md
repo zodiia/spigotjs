@@ -1,17 +1,8 @@
+# SpigotJS
 
-<div align="center" style="text-size: 24px;">
-  <h1>SpigotJS</h1>
-  SpigotJS aims at providing a Javascript plugins platform for Spigot.
-  <br />
-  <a href="http://gitlab.com/mael.grivot/spigotjs/-/wikis/home"><strong>Read the full documentation here ➜</strong></a>
-  <br />
-  <br />
-  <a href="https://www.spigotmc.org/resources/spigotjs/">Spigot page</a>
-  •
-  <a href="https://gitlab.com/mael.grivot/spigotjs/-/issues">Issues</a>
-  •
-  <a href="https://gitlab.com/mael.grivot/spigotjs/-/issues">Request a feature</a>
-</div>
+**WARNING:** This is an old, mostly undocumented project. It is however in a working state.
+
+SpigotJS was a proof of concept for running JavaScript plugins on Minecraft. It never made it into a full project, mainly because of the time investment it required and the fact that, in Java 17, the features used by GraalJS (the JavaScript runtime) to run fast were partially removed from the JVM. They are still available, but locked behind multiple command-line arguments, making it unaccessible for most servers.
 
 ## About the plugin
 
@@ -52,31 +43,31 @@ const SpigotJS = require("spigotjs");
 
 // Set the basic plugin informations ...
 SpigotJS.register({
-  name: 'Test plugin',
-  version: '1.0.0',
-  author: 'Zodiak',
-  minecraftVersion: '1.16',
-  apiVersion: '1',
-  description: 'An example plugin!'
+  name: "Test plugin",
+  version: "1.0.0",
+  author: "Zodiia",
+  minecraftVersion: "1.16",
+  apiVersion: "1",
+  description: "An example plugin!",
 });
 
 // ... execute code ...
-SpigotJS.on('enable', (server) => {
-  server.log('Hello world!');
+SpigotJS.on("enable", (server) => {
+  server.log("Hello world!");
 });
 
 // ... listen to events ...
-SpigotJS.on('blockPlace', (event, server) => {
+SpigotJS.on("blockPlace", (event, server) => {
   server.log(event.getBlock().getType());
 });
 
 // ... and create a nice command!
-SpigotJS.command('/hello', (sender, args) => {
-  sender.sendMessage('Hello there, ' + sender.getName() + '!');
+SpigotJS.command("/hello", (sender, args) => {
+  sender.sendMessage("Hello there, " + sender.getName() + "!");
 });
 ```
 
-For more examples and a full documentation, please refer to the [Documentation](http://gitlab.com/mael.grivot/spigotjs/-/wikis/home)
+For more examples and a full documentation, please refer to the [Documentation](http://gitlab.com/manon.grivot/spigotjs/-/wikis/home)
 
 ### Implement SpigotJS into your plugin
 
@@ -90,7 +81,7 @@ Unknown
 
 ## Contact
 
-Maël Grivot • Spigot: [Zodiak](https://www.spigotmc.org/members/zodiak.495642/) • [@ZodiakSNW](http://twitter.com/ZodiakSNW) • [mael.grivot@epitech.eu](mailto:mael.grivot@epitech.eu)
+Manon Grivot • Spigot: [Zodiak](https://www.spigotmc.org/members/zodiak.495642/) • Discord: zodiia • [hey@zodiia.moe](mailto:hey@zodiia.moe)
 
 ## Credits
 
